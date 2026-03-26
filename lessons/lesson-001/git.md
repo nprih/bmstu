@@ -1,3 +1,10 @@
+# Go
+
+Скачивание и мануал по установке https://go.dev/doc/install
+
+Добавить путь к исполняемому файлу Go в переменную PATH: \$ export PATH=$PATH:/usr/local/go/bin
+
+Применить изменения: \$ source ~/.bashrc
 
 # Git lesson
 
