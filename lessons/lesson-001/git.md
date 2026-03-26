@@ -20,7 +20,7 @@ git status
 
 git log - показывает комиты
 
-git git checkout (hash) - переход к выбранному комиту
+git checkout (hash) - переход к выбранному комиту
 
 ## Text
 
