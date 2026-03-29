@@ -2,25 +2,17 @@ package main
 
 import "fmt"
 
-func CheckAge(age int, name string) {
-	if age >= 18 {
-		fmt.Printf("Можете проходить в наш бар, %s \n", name)
-	} else if age <= 0 {
-		fmt.Println("Вы врете")
-	} else {
-		fmt.Println("Тебе пока рано")
-	}
-}
-
 func main() {
-	var name string
-	var age int
-
-	fmt.Print("Введите имя: ")
-	fmt.Scanln(&name)
-
-	fmt.Print("Введите возраст: ")
-	fmt.Scanln(&age)
-
-	CheckAge(age, name)
+	var a int = 3
+	switch {
+	case a > 1:
+		fmt.Println("a > 1")
+		fallthrough
+	case a == 100:
+		fmt.Println("3")
+	case a == 4 || a == 5:
+		fmt.Println("4 or 5")
+	default:
+		fmt.Println("Default case")
+	}
 }
