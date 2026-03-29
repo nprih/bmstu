@@ -12,7 +12,7 @@
 
 ## Commands
 
-https://learngitbranching.js.org/?locale=ru_RU
+Тренажер по Git https://learngitbranching.js.org/?locale=ru_RU
 
 **git init** - инициализирует git в данной папке
 
