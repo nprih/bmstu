@@ -19,7 +19,7 @@ func getResult(arr []int) string {
 
 func calc(arr []int) ([]int, int) {
 	items, summ := len(arr), 0
-	for i := 1; i < len(arr); i++ {
+	for i := 0; i < len(arr); i++ {
 		summ += arr[i]
 	}
 	sort.Sort(sort.Reverse(sort.IntSlice(arr)))
