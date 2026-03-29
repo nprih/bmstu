@@ -13,7 +13,7 @@ func getResult(arr []int) string {
 	}
 	res = res[:len(res)-1]
 	return res + fmt.Sprintf("\nСамое большое число: %d\n", sorted[0]) +
-		fmt.Sprintf("Самое большое число: %d\n", sorted[4]) +
+		fmt.Sprintf("Самое маленькое число: %d\n", sorted[4]) +
 		fmt.Sprintf("Среднее арифметическое: %d\n\"\n", mean)
 }
 
