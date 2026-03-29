@@ -23,7 +23,6 @@ func calc(arr []int) ([]int, int) {
 		summ += arr[i]
 	}
 	sort.Sort(sort.Reverse(sort.IntSlice(arr)))
-	fmt.Println(summ)
 	return arr, summ / items
 }
 
