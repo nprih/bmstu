@@ -7,7 +7,7 @@ import (
 
 func getResult(arr []int) string {
 	sorted, mean := calc(arr)
-	res := "выход:\n\"Отсортированные элементы: "
+	res := "\nвыход:\n\"Отсортированные элементы: "
 	for i := 0; i < len(sorted); i++ {
 		res += fmt.Sprintf("%d ", sorted[i])
 	}
