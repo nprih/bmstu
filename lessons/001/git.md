@@ -10,8 +10,6 @@
 
 ## Commands
 
-https://learngitbranching.js.org/?locale=ru_RU
-
 git init - инициализирует git в данной папке
 
 git add . добавляет все файлы в папке
@@ -23,18 +21,6 @@ git status
 git log - показывает комиты
 
 git checkout (hash) - переход к выбранному комиту
-
-git checkout NAME - переход к указаной ветке
-
-git branch - показывает ветки
-
-git branch ИМЯ - создает новую ветку
-
-git merge ИМЯ - сливает указанную ветку в текущую
-
-git branch -d ИМЯ - удаляет указанную ветку
-
-git push - выгрузка на удаленный репозиторий
 
 ## Text
 
@@ -49,9 +35,3 @@ __Bold__
 __*Curs*__
 
 _Curs_
-
-### Список
-
-1. ывлаорпл
-2. ыфвыфвыфв
-3. фывыфвфыв
