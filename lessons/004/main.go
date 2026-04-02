@@ -1,12 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func main() {
-	a := 1.0 / 3
-	fmt.Println(a)
-	fmt.Printf("%v\n", a)
-	fmt.Printf("%f\n", a)
-	fmt.Printf("%.3f\n", a)
-	fmt.Printf("%07.2f\n", a)
+	b := 0.1
+	b += 0.2
+	fmt.Println(math.Abs(b-0.3) < 0.0001)
 }
