@@ -1,12 +1,17 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
+func factorial(a uint) uint {
+	var b, i uint = 1, 1
+	for i <= a {
+		b *= i
+		i++
+	}
+	return b
+}
 func main() {
-	b := 0.1
-	b += 0.2
-	fmt.Println(math.Abs(b-0.3) < 0.0001)
+	var a uint
+	fmt.Scanln(&a)
+	fmt.Println(factorial(a))
 }
