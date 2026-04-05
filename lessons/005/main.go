@@ -2,15 +2,11 @@ package main
 
 import (
 	"fmt"
-	"unicode/utf8"
+	"strings"
 )
 
 func main() {
-	question := "¿Cómo estás?"
-	engQestion := "How are you?"
-
-	//fmt.Println(len(question))
-	//fmt.Println(len(engQestion))
-	fmt.Println(utf8.RuneCountInString(question))
-	fmt.Println(utf8.RuneCountInString(engQestion))
+	text := fmt.Sprintf("I love %s very very much", "cats")
+	newText := strings.Replace(text, "very ", "", 1)
+	fmt.Println(newText)
 }
