@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strconv"
 )
 
 func main() {
-	//var a int = 10 // int->float64
-	//var b float32 = float32(a)
+	//10 -> "10"
+	//var pi rune = 1009 //rune/int32 -> string
+	//fmt.Println(string(pi))
+	//strconv
+	//Atoi ascii to integer| Itoa integer to ascii
+	var a int = 10
+	var b string = strconv.Itoa(a)
 
-	var c float64 = 12.999999
-	var d int = int(math.Round(c))
+	fmt.Printf("%v %T\n", b, b)
 
-	//fmt.Println(b)
-	fmt.Println(d)
 }
