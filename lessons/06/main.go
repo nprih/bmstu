@@ -1,21 +1,19 @@
 package main
 
-import "fmt"
-
-//ParceFloat / FormatFloat
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 func main() {
-	var a string = "yes"
-	var readyForLaunch bool
-	readyForLaunch = (a == "yes")
-	fmt.Println("Ready fo space?", "-", readyForLaunch)
-
-	//var trueFalse string
-	//
-	//if a {
-	//	trueFalse = "true"
-	//} else {
-	//	trueFalse = "false"
-	//}
-	//println(trueFalse)
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("New line: ")
+	text, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("Ur text: ", strings.TrimSpace(text))
 }
