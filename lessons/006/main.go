@@ -10,7 +10,7 @@ func main() {
 	//strconv
 	//Atoi ascii to integer| Itoa integer to ascii
 
-	var a string = "10"
+	var a string = "10 "
 	b, err := strconv.Atoi(a)
 	if err != nil {
 		fmt.Println(err)
