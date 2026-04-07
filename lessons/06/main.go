@@ -8,34 +8,34 @@ import (
 	"strings"
 )
 
-func calc(text string) {
-	i, err := strconv.Atoi(strings.TrimSpace(text))
-	if err != nil {
-		fmt.Println("Вы ввели не число")
-		return
-	}
-
-	res := i % 2
-	response := ""
-	if res == 0 {
-		response = "четное"
-	} else {
-		response = "не четное"
-	}
-
-	fmt.Println("Ваше число:", strings.TrimSpace(response))
-
-}
-
-func main() {
+func run() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Print("New line: ")
+		fmt.Print("Новая строка: ")
 		text, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		calc(text)
+		i, errRes := strconv.Atoi(strings.TrimSpace(text))
+		printRes(i, errRes)
 	}
+}
+
+func printRes(i int, err error) {
+	res := "Вы ввели"
+	if err != nil {
+		fmt.Println(res, "не число")
+		return
+	}
+	if i%2 == 0 {
+		res += " четное"
+	} else {
+		res += " не четное"
+	}
+	fmt.Println(res, "число")
+}
+
+func main() {
+	run()
 }
