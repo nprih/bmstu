@@ -7,12 +7,15 @@ import (
 
 func main() {
 	//10 -> "10"
-	//var pi rune = 1009 //rune/int32 -> string
-	//fmt.Println(string(pi))
 	//strconv
 	//Atoi ascii to integer| Itoa integer to ascii
-	var a int = 10
-	var b string = strconv.Itoa(a)
+
+	var a string = "10"
+	b, err := strconv.Atoi(a)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	fmt.Printf("%v %T\n", b, b)
 
