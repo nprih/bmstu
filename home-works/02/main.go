@@ -8,30 +8,17 @@ import (
 	"strings"
 	"tasks/calculateLen"
 	"tasks/calculateVowel"
-)
-
-const (
-	title      = "Укажите номер задачи, которую вы хотите выполнить:"
-	one        = "Напишите программу, которая запрашивает у пользователя ввод строки, а затем выводит число - количество символов в строке"
-	two        = "Напишите программу, которая подсчитывает количество гласных букв (а, е, ё, и, о, у, ы, э, ю, я) в введённой пользователем строке"
-	three      = "Создайте функцию capitalizeWords(s string) string, которая преобразует каждое слово в строке так, чтобы первая буква была заглавной, а остальные — строчными"
-	four       = "Напишите программу, которая запрашивает у пользователя ввод строки-формулы, а выводит сообщение о правильности написания круглых скобок"
-	five       = "Выход из приложения"
-	selected   = "Вы выбрали: "
-	notCorrect = " - не корректное число\n"
-	line       = "\n------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
-	quit       = "quit"
-	exit       = "Выход"
+	"tasks/enum"
 )
 
 var numTask int
 var stop string
 
 func main() {
-	for stop != quit {
+	for stop != enum.Quit {
 		numTask = 0
 		taskSelection()
-		fmt.Println(line)
+		fmt.Println(enum.Line)
 		taskSolution()
 	}
 }
@@ -58,7 +45,7 @@ func taskSelection() {
 }
 
 func getTasks() []string {
-	return []string{one, two, three, four, five}
+	return []string{enum.One, enum.Two, enum.Three, enum.Four, enum.Five}
 }
 
 func printTasks(tasks []string) {
@@ -69,7 +56,7 @@ func printTasks(tasks []string) {
 			listTasks += fmt.Sprint("\n")
 		}
 	}
-	listTasks += fmt.Sprintf("\n%s ", title)
+	listTasks += fmt.Sprintf("\n%s ", enum.Title)
 	fmt.Print(listTasks)
 }
 
@@ -77,20 +64,20 @@ func checkNumber(text string) {
 	numberTask, err := strconv.Atoi(strings.TrimSpace(text))
 	switch true {
 	case err != nil:
-		fmt.Print(strings.TrimSpace(text), notCorrect)
+		fmt.Print(strings.TrimSpace(text), enum.NotCorrect)
 		return
 	case numberTask <= 0:
-		fmt.Print(strings.TrimSpace(text), notCorrect)
+		fmt.Print(strings.TrimSpace(text), enum.NotCorrect)
 		return
 	case numberTask == 5:
-		fmt.Print(exit, "\n")
-		stop = quit
+		fmt.Print(enum.Exit, "\n")
+		stop = enum.Quit
 		return
 	case numberTask > 5:
 		fmt.Print("У нас не так много задач\n")
 		return
 	default:
 		numTask = numberTask
-		fmt.Print(selected, numTask, "\n")
+		fmt.Print(enum.Selected, numTask, "\n")
 	}
 }

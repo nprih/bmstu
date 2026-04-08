@@ -5,14 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"tasks/enum"
 	"unicode/utf8"
-)
-
-const (
-	titleOne = "Выполняется задача №1"
-	reqOne   = "Введите строку: "
-	resOne   = "Количество символов в введенной строке:"
-	futter   = "Задача №1 решена"
 )
 
 var text string
@@ -21,12 +15,12 @@ var err error
 func Run() {
 	printHeader()
 	inputText()
-	fmt.Print(resOne, " ", utf8.RuneCountInString(strings.TrimSpace(text)), "\n\n", futter, "\n\n")
+	fmt.Print(enum.ResOne, " ", utf8.RuneCountInString(strings.TrimSpace(text)), "\n\n", enum.FutterOne, "\n\n")
 }
 
 func printHeader() {
-	fmt.Printf("%s\n\n", titleOne)
-	fmt.Print(reqOne)
+	fmt.Printf("%s\n\n", enum.TitleOne)
+	fmt.Print(enum.ReqOne)
 }
 
 func inputText() {
