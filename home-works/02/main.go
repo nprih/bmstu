@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"tasks/calculateLen"
+	"tasks/calculateVowel"
 )
 
 const (
@@ -27,18 +28,21 @@ var numTask int
 var stop string
 
 func main() {
-	//calculateLen.Run()
-	//calculateVowel.Run()
 	for stop != quit {
 		numTask = 0
 		taskSelection()
 		fmt.Println(line)
-		switch numTask {
-		case 1:
-			calculateLen.Run()
-		}
+		taskSolution()
 	}
-	//taskSelection()
+}
+
+func taskSolution() {
+	switch numTask {
+	case 1:
+		calculateLen.Run()
+	case 2:
+		calculateVowel.Run()
+	}
 }
 
 func taskSelection() {
