@@ -13,7 +13,9 @@ func main() {
 		"Сатурн",
 		"Уран класная планета",
 	}
-	for i, v := range planets {
-		fmt.Println(i, v)
+	for i, _ := range planets {
+		fmt.Println(planets[i])
+		planets[i] = "Bad planet"
 	}
+	fmt.Println(planets)
 }
