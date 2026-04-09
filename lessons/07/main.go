@@ -14,13 +14,7 @@ func main() {
 		"Сатурн",
 		"Уран",
 	}
-	FirstPlanets := planets[:3]
-	fmt.Println(FirstPlanets)
+	allPlanets := planets[:]
 
-	SecondPlanets := planets[3:]
-	fmt.Println(SecondPlanets)
-
-	FirstPlanets[0] = "different planet"
-	SecondPlanets[0] = "different planet"
-	fmt.Println(planets)
+	fmt.Println(allPlanets)
 }
