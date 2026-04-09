@@ -5,7 +5,7 @@ import "fmt"
 // Массив - это всегда фиксированная длинна
 
 func main() {
-	planets := [...]string{
+	planets := []string{
 		"Меркуий",
 		"Венера",
 		"Земля",
@@ -14,7 +14,5 @@ func main() {
 		"Сатурн",
 		"Уран",
 	}
-	allPlanets := planets[:]
-
-	fmt.Println(allPlanets)
+	fmt.Println(len(planets))
 }
