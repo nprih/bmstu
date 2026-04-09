@@ -6,7 +6,9 @@ import "fmt"
 // Слайс - не фиксированная, по умолчанию, длина. Можно увеличивать...
 
 func main() {
-	//planets := []string{}
-	planets := make([]string, 100)
-	fmt.Println(len(planets))
+	planets_2 := []int{}
+	for i := 0; i < 30; i++ {
+		planets_2 = append(planets_2, i)
+	}
+	fmt.Println(len(planets_2))
 }
