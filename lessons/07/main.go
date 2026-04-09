@@ -4,19 +4,23 @@ import "fmt"
 
 // Массив - это всегда фиксированная длинна
 
-func change01index(arr [3]string) {
-	arr[0] = "different planet"
-}
-
 func main() {
 	planets := [...]string{
-		"Меркурий",
+		"Меркуий",
 		"Венера",
 		"Земля",
+		"Марс",
+		"Юпитер",
+		"Сатурн",
+		"Уран",
 	}
+	FirstPlanets := planets[0:3]
+	fmt.Println(FirstPlanets)
 
-	change01index(planets)
+	SecondPlanets := planets[3:6]
+	fmt.Println(SecondPlanets)
 
+	FirstPlanets[0] = "different planet"
+	SecondPlanets[0] = "different planet"
 	fmt.Println(planets)
-
 }
