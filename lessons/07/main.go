@@ -2,13 +2,18 @@ package main
 
 import "fmt"
 
-// пустые строки
+// Массив - это всегда фиксированная длинна
 
 func main() {
 	planets := [...]string{
 		"Меркурий",
 		"Венера",
 		"Земля",
+		"Марс",
+		"Сатурн",
+		"Уран класная планета",
 	}
-	fmt.Println(planets)
+	for i, v := range planets {
+		fmt.Println(i, v)
+	}
 }
