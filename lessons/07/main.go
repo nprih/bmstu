@@ -14,10 +14,10 @@ func main() {
 		"Сатурн",
 		"Уран",
 	}
-	FirstPlanets := planets[0:3]
+	FirstPlanets := planets[:3]
 	fmt.Println(FirstPlanets)
 
-	SecondPlanets := planets[3:6]
+	SecondPlanets := planets[3:]
 	fmt.Println(SecondPlanets)
 
 	FirstPlanets[0] = "different planet"
