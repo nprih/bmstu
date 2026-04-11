@@ -11,11 +11,16 @@ import (
 
 var text string
 var err error
+var stop string
 
 func Run() {
-	printHeader()
-	inputText()
-	fmt.Print(enum.ResOne, " ", utf8.RuneCountInString(strings.TrimSpace(text)), "\n\n", enum.FutterOne, "\n\n")
+	stop = ""
+	for stop != enum.Quit {
+		printHeader()
+		inputText()
+		fmt.Print(enum.ResOne, " ", utf8.RuneCountInString(strings.TrimSpace(text)), "\n\n", enum.FutterOne, "\n\n")
+		inputNext()
+	}
 }
 
 func printHeader() {
@@ -29,5 +34,18 @@ func inputText() {
 	if err != nil {
 		fmt.Println(err)
 		return
+	}
+}
+
+func inputNext() {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print(enum.QuestionOne)
+	text, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	if strings.ToLower(strings.TrimSpace(text)) == "n" {
+		stop = enum.Quit
 	}
 }
