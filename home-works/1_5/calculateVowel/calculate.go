@@ -1,4 +1,4 @@
-package calculateLen
+package calculateVowel
 
 import (
 	"bufio"
@@ -6,10 +6,10 @@ import (
 	"os"
 	"strings"
 	"tasks/enum"
-	"unicode/utf8"
 )
 
 var text string
+var sum int
 var err error
 var stop string
 
@@ -18,14 +18,29 @@ func Run() {
 	for stop != enum.Quit {
 		printHeader()
 		inputText()
-		fmt.Print(enum.ResOne, " ", utf8.RuneCountInString(strings.TrimSpace(text)), "\n\n", enum.FutterOne, "\n\n")
+		calcVowels()
+		printRes()
 		inputNext()
 	}
 }
 
 func printHeader() {
-	fmt.Printf("%s\n\n", enum.TitleOne)
-	fmt.Print(enum.ReqOne)
+	fmt.Printf("%s\n%s\n\n%s", enum.Line, enum.TitleTwo, enum.ReqOne)
+}
+
+func printRes() {
+	fmt.Print(enum.ResTwo, " ", sum, "\n\n", enum.FutterTwo, "\n\n")
+}
+
+func calcVowels() {
+	sum = 0
+	for _, char := range strings.TrimSpace(strings.ToLower(text)) {
+		for _, vowel := range enum.Vowels {
+			if char == vowel {
+				sum++
+			}
+		}
+	}
 }
 
 func inputText() {
@@ -39,13 +54,14 @@ func inputText() {
 
 func inputNext() {
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Print(enum.QuestionOne)
+	fmt.Print(enum.QuestionNext)
 	text, err = reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	if strings.ToLower(strings.TrimSpace(text)) == "n" {
+	if strings.ToLower(strings.TrimSpace(text)) == "y" {
 		stop = enum.Quit
+		fmt.Println(enum.Line)
 	}
 }

@@ -18,7 +18,6 @@ func main() {
 	for stop != enum.Quit {
 		numTask = 0
 		taskSelection()
-		fmt.Println(enum.Line)
 		taskSolution()
 	}
 }
@@ -40,7 +39,6 @@ func taskSelection() {
 		fmt.Println(err)
 		return
 	}
-
 	checkNumber(text)
 }
 
