@@ -2,13 +2,21 @@ package main
 
 import "fmt"
 
-func Sum(x ...int) (res, zero int) {
-	for _, v := range x {
-		res += v
+func Say(animal string) string {
+	if animal == "cat" {
+		return "Meuw!"
+	} else if animal == "dog" {
+		return "Wuf!"
 	}
-	return res, zero
+	return "I dont know!"
+}
+
+func AnimalTalk(who string, how func(string) string) {
+	fmt.Println(how(who))
 }
 
 func main() {
-	fmt.Println(Sum(5, 2, 3))
+	var voice func(string) string
+	voice = Say
+	AnimalTalk("cat", voice)
 }
