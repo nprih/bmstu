@@ -25,11 +25,16 @@ func Run() {
 }
 
 func printHeader() {
-	fmt.Printf("%s\n%s\n\n%s", enum.Line, enum.TitleTwo, enum.ReqText)
+	fmt.Printf("%s\n%s №2\n\n%s", enum.Line, enum.TitleTask, enum.ReqText)
 }
 
-func printRes() {
-	fmt.Print(enum.ResTwo, " ", sum, "\n\n", enum.FutterTwo, "\n\n")
+func inputText() {
+	reader := bufio.NewReader(os.Stdin)
+	text, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func calcVowels() {
@@ -43,13 +48,13 @@ func calcVowels() {
 	}
 }
 
-func inputText() {
-	reader := bufio.NewReader(os.Stdin)
-	text, err = reader.ReadString('\n')
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+func printRes() {
+	fmt.Print(enum.ResTwo, " ", sum, "\n\n", getFooter(), "\n\n")
+}
+
+func getFooter() string {
+	futter := strings.Split(strings.TrimSpace(enum.Futter), " ")
+	return fmt.Sprintf("%s №2 %s", futter[0], futter[1])
 }
 
 func inputNext() {
