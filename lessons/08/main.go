@@ -2,10 +2,16 @@ package main
 
 import "fmt"
 
-func AnimalTalk(who string, how func(string) string) {
-	fmt.Println(how(who))
+func WorkingWithDB() {
+	//Open DB no logic
+	//Some logic
+	//Close DB connection
 }
 
 func main() {
-	AnimalTalk("dog", func(animal string) string { return "Wuf!" })
+	defer fmt.Println("This is defer #1")
+	defer fmt.Println("This is defer #2")
+	defer fmt.Println("This is defer #3")
+
+	fmt.Println("main function")
 }
