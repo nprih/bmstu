@@ -9,6 +9,7 @@ import (
 	"tasks/calculateLen"
 	"tasks/calculateVowel"
 	"tasks/capitalizeWords"
+	"tasks/checkFormula"
 	"tasks/enum"
 )
 
@@ -31,6 +32,8 @@ func taskSolution() {
 		calculateVowel.Run()
 	case 3:
 		capitalizeWords.Run()
+	case 4:
+		checkFormula.Run()
 	}
 }
 

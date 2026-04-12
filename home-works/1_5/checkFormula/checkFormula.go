@@ -1,4 +1,4 @@
-package capitalizeWords
+package checkFormula
 
 import (
 	"bufio"
@@ -6,27 +6,26 @@ import (
 	"os"
 	"strings"
 	"tasks/enum"
-	"unicode"
 )
 
 var text string
 var err error
+var openerCount, closingCount int
 var stop string
-var firstCharUpperWords []string
 
 func Run() {
 	stop = ""
 	for stop != enum.Quit {
 		printHeader()
 		inputText()
-		capitalizeWords()
+		calcBrackets()
 		printRes()
 		inputNext()
 	}
 }
 
 func printHeader() {
-	fmt.Printf("%s\n%s №3\n\n%s", enum.Line, enum.TitleTask, enum.ReqText)
+	fmt.Printf("%s\n%s №4\n\n%s", enum.Line, enum.TitleTask, enum.ReqFour)
 }
 
 func inputText() {
@@ -38,31 +37,35 @@ func inputText() {
 	}
 }
 
-func capitalizeWords() {
-	words := strings.Split(strings.TrimSpace(text), " ")
-	firstCharUpperWords = firstCharUpperWords[:0]
-	for _, word := range words {
-		char := []rune(word)
-		for i := range char {
-			if i == 0 {
-				char[i] = unicode.ToUpper(char[i])
-			} else {
-				char[i] = unicode.ToLower(char[i])
-			}
+func calcBrackets() {
+	openerCount, closingCount = 0, 0
+	for _, char := range strings.TrimSpace(text) {
+		if char == '(' {
+			openerCount++
 		}
-		firstCharUpperWords = append(firstCharUpperWords, string(char))
+		if char == ')' {
+			closingCount++
+		}
 	}
 }
 
 func printRes() {
-	fmt.Print(enum.ResThree, " ", strings.Join(firstCharUpperWords, " "),
+	res := ""
+	if openerCount != closingCount {
+		res += " неправильно, "
+	} else {
+		res += " верно, "
+	}
+	fmt.Print(enum.ResFour, res,
+		openerCount, " открывающиеся, ",
+		closingCount, " закрывающиеся",
 		"\n\n", getFooter(), "\n\n",
 	)
 }
 
 func getFooter() string {
 	futter := strings.Split(strings.TrimSpace(enum.Futter), " ")
-	return fmt.Sprintf("%s №3 %s", futter[0], futter[1])
+	return fmt.Sprintf("%s №4 %s", futter[0], futter[1])
 }
 
 func inputNext() {
