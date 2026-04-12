@@ -8,6 +8,7 @@ import (
 	"strings"
 	"tasks/calculateLen"
 	"tasks/calculateVowel"
+	"tasks/capitalizeWords"
 	"tasks/enum"
 )
 
@@ -28,6 +29,8 @@ func taskSolution() {
 		calculateLen.Run()
 	case 2:
 		calculateVowel.Run()
+	case 3:
+		capitalizeWords.Run()
 	}
 }
 

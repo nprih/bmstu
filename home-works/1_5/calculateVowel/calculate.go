@@ -25,7 +25,7 @@ func Run() {
 }
 
 func printHeader() {
-	fmt.Printf("%s\n%s\n\n%s", enum.Line, enum.TitleTwo, enum.ReqOne)
+	fmt.Printf("%s\n%s\n\n%s", enum.Line, enum.TitleTwo, enum.ReqText)
 }
 
 func printRes() {
