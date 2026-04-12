@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
 	dmitry := map[string]string{
@@ -10,8 +8,9 @@ func main() {
 		"Name":    "Dmitry",
 		"Email":   "veryovkin@bmstu.ru",
 	}
-	delete(dmitry, "Name")
-	for k, v := range dmitry {
-		fmt.Println(k, ":", v)
+	if dmitry["Age"] != "" {
+		fmt.Println(dmitry["Age"])
+	} else {
+		fmt.Println("I havo no age, sorry =( ")
 	}
 }
