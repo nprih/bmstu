@@ -2,11 +2,14 @@ package main
 
 import "fmt"
 
-func main() {
-	fmt.Println(Cube(5))
+func Sum(x ...int) int {
+	res := 0
+	for _, v := range x {
+		res += v
+	}
+	return res
 }
 
-func Cube(x int) (y int) {
-	y = x * x * x
-	return
+func main() {
+	fmt.Println(Sum(5, 2, 3))
 }
