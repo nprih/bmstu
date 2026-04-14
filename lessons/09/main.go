@@ -2,12 +2,17 @@ package main
 
 import "fmt"
 
-type location struct {
-	lat, long float64
+type User struct {
+	Name  string
+	Email string
+	Age   int
 }
 
 func main() {
-	var solaris location = location{long: 12.12, lat: 10.11}
+	var Ivan User = User{Name: "Ivan", Email: "Ivan@email.ru", Age: 19}
+	var Kirill User = User{Name: "Kirill", Email: "Kirill@email.ru", Age: 20}
 
-	fmt.Printf("%+v\n", solaris)
+	users := []User{Ivan, Kirill}
+
+	fmt.Println(users)
 }
