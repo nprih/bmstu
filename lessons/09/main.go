@@ -7,7 +7,7 @@ type location struct {
 }
 
 func main() {
-	var solaris location = location{10.11, 12.12}
+	var solaris location = location{long: 12.12, lat: 10.11}
 
 	fmt.Printf("%+v\n", solaris)
 }
