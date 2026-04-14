@@ -1,29 +1,27 @@
 package main
 
-import "fmt"
-
-type Engine struct {
-	Name string
-}
-
-func (e Engine) start() {
-	fmt.Println("brbrbrbrbrbrbrb")
-}
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type Car struct {
 	Number string
 	Color  string
-	Engine
+	Engine string
 }
 
 func main() {
 	myCar := Car{
 		Number: "а001аа777",
 		Color:  "red",
-		Engine: Engine{
-			Name: "B123A56",
-		},
+		Engine: "B123A56",
 	}
 
-	myCar.start()
+	jsonData, err := json.Marshal(myCar)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(jsonData))
 }
