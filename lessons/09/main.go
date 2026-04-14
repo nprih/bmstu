@@ -2,12 +2,17 @@ package main
 
 import "fmt"
 
+type celsius float64
+type kelvin float64
+
+func kelvinToCelsius(t kelvin) celsius {
+	return celsius(t - 273.15)
+}
+
 func main() {
-	type celsius float64
 
-	var wrongCelsius float64 = 100
+	var temperatureInCelsius celsius = 10.7
+	var temperatureInKelvin kelvin = 400
 
-	var temperature celsius = 10.7 + celsius(wrongCelsius)
-
-	fmt.Println(temperature)
+	fmt.Println(temperatureInCelsius + kelvinToCelsius(temperatureInKelvin))
 }
