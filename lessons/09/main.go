@@ -2,24 +2,43 @@ package main
 
 import "fmt"
 
-type Animal struct {
-	Name  string
-	Voice string
+type Engine struct {
+	Name string
 }
 
-func (a Animal) talk() {
-	fmt.Printf("%s говорит: %s!\n", a.Name, a.Voice)
+func (e Engine) start(arr []int) {
+	fmt.Println("brbrbrbrbrbrbrb")
+}
+
+type Car struct {
+	Number string
+	Color  string
+	Engine Engine
+}
+
+type Motorcycle struct {
+	Number string
+	Vendor string
+	Engine Engine
 }
 
 func main() {
-	Barsic := Animal{
-		Name:  "Барсик",
-		Voice: "Мяу",
+	myCar := Car{
+		Number: "а001аа777",
+		Color:  "red",
+		Engine: Engine{
+			Name: "B123A56",
+		},
 	}
-	Sharik := Animal{
-		Name:  "Шарик",
-		Voice: "Гав",
+
+	myCicle := Motorcycle{
+		Number: "а0000",
+		Vendor: "BMW",
+		Engine: Engine{
+			Name: "B123A56",
+		},
 	}
-	Barsic.talk()
-	Sharik.talk()
+
+	fmt.Println(myCar.Engine)
+	fmt.Println(myCicle.Engine)
 }
