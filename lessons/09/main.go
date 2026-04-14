@@ -10,6 +10,7 @@ type Animal struct {
 func (a Animal) talk() {
 	fmt.Printf("%s говорит: %s!\n", a.Name, a.Voice)
 }
+
 func main() {
 	Barsic := Animal{
 		Name:  "Барсик",
