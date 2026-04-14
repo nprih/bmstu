@@ -6,9 +6,9 @@ import (
 )
 
 type Car struct {
-	Number string
-	Color  string
-	Engine string
+	Number string `json:"car_number"`
+	Color  string `json:"car_color"`
+	Engine string `json:"car_engine"`
 }
 
 func main() {
