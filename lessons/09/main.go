@@ -2,14 +2,13 @@ package main
 
 import "fmt"
 
-type counter int
-
-func (c *counter) incr() {
-	*c++
+type location struct {
+	lat, long float64
 }
 
 func main() {
-	var c counter = 0
-	c.incr()
-	fmt.Println(c)
+	var solaris location = location{10.11, 12.12}
+
+	fmt.Printf("%+v\n", solaris)
+	//fmt.Println(camry)
 }
