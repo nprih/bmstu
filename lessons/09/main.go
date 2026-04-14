@@ -6,7 +6,7 @@ type Engine struct {
 	Name string
 }
 
-func (e Engine) start(arr []int) {
+func (e Engine) start() {
 	fmt.Println("brbrbrbrbrbrbrb")
 }
 
@@ -27,25 +27,3 @@ func main() {
 
 	myCar.start()
 }
-
-//type Engine struct {
-//	Name string
-//}
-//func (e Engine) start() {
-//	fmt.Println("brbrbrbrbrbrbr")
-//}
-//type Car struct {
-//	Number string
-//	Color  string
-//	Engine
-//}
-//func main() {
-//	myCar := Car{
-//		Number: "a001aa777",
-//		Color:  "red",
-//		Engine: Engine{
-//			Name: "B123A56",
-//		},
-//	}
-//	myCar.start()
-//}
