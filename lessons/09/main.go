@@ -13,13 +13,7 @@ func (e Engine) start(arr []int) {
 type Car struct {
 	Number string
 	Color  string
-	Engine Engine
-}
-
-type Motorcycle struct {
-	Number string
-	Vendor string
-	Engine Engine
+	Engine
 }
 
 func main() {
@@ -31,14 +25,27 @@ func main() {
 		},
 	}
 
-	myCicle := Motorcycle{
-		Number: "а0000",
-		Vendor: "BMW",
-		Engine: Engine{
-			Name: "B123A56",
-		},
-	}
-
-	fmt.Println(myCar.Engine)
-	fmt.Println(myCicle.Engine)
+	myCar.start()
 }
+
+//type Engine struct {
+//	Name string
+//}
+//func (e Engine) start() {
+//	fmt.Println("brbrbrbrbrbrbr")
+//}
+//type Car struct {
+//	Number string
+//	Color  string
+//	Engine
+//}
+//func main() {
+//	myCar := Car{
+//		Number: "a001aa777",
+//		Color:  "red",
+//		Engine: Engine{
+//			Name: "B123A56",
+//		},
+//	}
+//	myCar.start()
+//}
