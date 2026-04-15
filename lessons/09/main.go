@@ -15,7 +15,7 @@ func main() {
 	myCar := Car{
 		Number: "а001аа777",
 		Color:  "red",
-		Engine: "B123A56",
+		Engine: "B123A56d",
 	}
 
 	jsonData, err := json.Marshal(myCar)
