@@ -47,6 +47,7 @@ var books = []Book{
 
 const quit = "quit"
 
+// by Николай
 func main() {
 	for stop != quit {
 		numTask = 0
@@ -55,6 +56,7 @@ func main() {
 	}
 }
 
+// by Николай
 func taskSolution() {
 	switch numTask {
 	case 1:
@@ -68,6 +70,7 @@ func taskSolution() {
 	}
 }
 
+// by Николай
 func taskSelection() {
 	fmt.Printf("\n1 - %s\n2 - %s\n3 - %s\n4 - %s\n\n%s\nВведите номер задачи: ", One, Two, Three, Four, Five)
 	reader := bufio.NewReader(os.Stdin)
@@ -79,6 +82,7 @@ func taskSelection() {
 	checkNumber(text)
 }
 
+// by Николай
 func checkNumber(text string) {
 	numberTask, err := strconv.Atoi(strings.TrimSpace(text))
 	switch true {
