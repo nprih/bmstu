@@ -19,7 +19,6 @@ const Two = "Вывести только доступные/недоступны
 const Three = "Вывести только книги, отсортированные по автору (автора вводит пользователь)"
 const Four = "Взять книгу себе (изменить флаг) | предусмотреть невозможность взять недоступную книгу"
 const Five = "5 - Выход из приложения\n"
-const endTask = "\n\nЗадача выполнена\n\n"
 
 var numTask int
 var stop string
@@ -65,7 +64,7 @@ func taskSolution() {
 	case 3:
 		filterBooksByAuthor(books)
 	case 4:
-		//books.take()
+		takeBook(books)
 	}
 }
 
@@ -102,6 +101,7 @@ func checkNumber(text string) {
 	}
 }
 
+// by Арсений
 func printAllBook(books []Book) {
 	printHeader()
 	for i, book := range books {
@@ -110,6 +110,7 @@ func printAllBook(books []Book) {
 	printFooter()
 }
 
+// by Арсений
 func filterByAvailability(books []Book) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Показать (1 - доступные, 2 - недоступные): ")
@@ -136,6 +137,7 @@ func filterByAvailability(books []Book) {
 	printFooter()
 }
 
+// by Арсений
 func printBook(i int, book Book) {
 	status := "Недоступна"
 	if book.Available {
@@ -144,16 +146,19 @@ func printBook(i int, book Book) {
 	fmt.Printf("%-4d | %-30s | %-30s | %-12s\n", i, book.Title, book.Author, status)
 }
 
+// by Арсений
 func printHeader() {
 	fmt.Printf("%s%s%s\n", strings.Repeat("-", 39), "Каталог книг", strings.Repeat("-", 39))
 	fmt.Printf("%-4s | %-30s | %-30s | %-12s \n", "№", "Название", "Автор", "Доступность")
 	fmt.Println(strings.Repeat("-", 90))
 }
+
+// by Арсений
 func printFooter() {
 	fmt.Println(strings.Repeat("-", 90))
-	fmt.Printf(endTask)
 }
 
+// by Анатолий
 func filterBooksByAuthor(books []Book) {
 	var filteredBooks []Book
 	var author string
@@ -165,15 +170,28 @@ func filterBooksByAuthor(books []Book) {
 		}
 	}
 	printAllBook(filteredBooks)
-	fmt.Printf(endTask)
 }
 
-func (b *Book) take() bool {
-	if b.Available {
-		b.Available = false
-		fmt.Printf("Вы успешно взяли книгу %s\n", b.Title)
+// by Анатолий
+func takeBook(books []Book) bool {
+	printAllBook(books)
+	var userInput string
+	fmt.Println("Введите идентификатор книги:")
+	fmt.Scan(&userInput)
+	bookIndex, err := strconv.Atoi(userInput)
+	if err != nil {
+		fmt.Println("Вы ввели некорректный идентификатор")
+		return false
+	}
+	if bookIndex >= len(books) || bookIndex < 0 {
+		fmt.Println("Книги с таким идентификатором нет в нашей библиотеке")
+		return false
+	}
+	if books[bookIndex].Available {
+		books[bookIndex].Available = false
+		fmt.Printf("Вы успешно взяли книгу %s\n", books[bookIndex].Title)
 		return true
 	}
-	fmt.Printf("Книгу %s уже взяли\n", b.Title)
+	fmt.Printf("Книгу %s уже взяли\n", books[bookIndex].Title)
 	return false
 }
