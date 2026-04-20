@@ -18,6 +18,6 @@ func main() {
 	}
 	for i := 0; i < 5; i++ {
 		gopherId := <-c
-		fmt.Printf("Gopher  %d finished work\n", gopherId)
+		fmt.Printf("Gopher %d finished work\n", gopherId)
 	}
 }
