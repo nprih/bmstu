@@ -12,14 +12,14 @@ func providerGopher(ch12 chan string) {
 		time.Sleep(1 * time.Second)
 		ch12 <- v
 	}
-	ch12 <- ""
+	close(ch12)
 }
 
 func analyzeGopher(ch12, ch23 chan string) {
 	for {
-		item := <-ch12
-		if item == "" {
-			ch23 <- ""
+		item, ok := <-ch12
+		if !ok {
+			close(ch23)
 			return
 		}
 		if !strings.Contains(item, "bad") {
@@ -30,8 +30,8 @@ func analyzeGopher(ch12, ch23 chan string) {
 
 func printerGopher(ch23 chan string) {
 	for {
-		item := <-ch23
-		if item == "" {
+		item, ok := <-ch23
+		if !ok {
 			return
 		}
 		fmt.Printf("%s, ", item)
@@ -46,4 +46,5 @@ func main() {
 	go providerGopher(ch12)
 
 	printerGopher(ch23)
+	fmt.Println()
 }
