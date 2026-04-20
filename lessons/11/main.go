@@ -7,7 +7,7 @@ import (
 )
 
 func providerGopher(ch12 chan string) {
-	data := []string{"apple", "pen", "pineapple", "bad", "bad apple", "hello world"}
+	data := []string{"apple", "pen", "", "pineapple", "bad", "bad apple", "hello world"}
 	for _, v := range data {
 		time.Sleep(1 * time.Second)
 		ch12 <- v
