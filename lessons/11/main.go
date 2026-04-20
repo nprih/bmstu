@@ -42,8 +42,8 @@ func main() {
 	ch12 := make(chan string)
 	ch23 := make(chan string)
 
-	go providerGopher(ch12)
 	go analyzeGopher(ch12, ch23)
+	go providerGopher(ch12)
 
 	printerGopher(ch23)
 }
