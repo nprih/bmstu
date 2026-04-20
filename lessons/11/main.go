@@ -16,28 +16,19 @@ func providerGopher(ch12 chan string) {
 }
 
 func analyzeGopher(ch12, ch23 chan string) {
-	for {
-		item, ok := <-ch12
-		if !ok {
-			close(ch23)
-			return
-		}
+	for item := range ch12 {
 		if !strings.Contains(item, "bad") {
 			ch23 <- item
 		}
 	}
+	close(ch23)
 }
 
 func printerGopher(ch23 chan string) {
-	for {
-		item, ok := <-ch23
-		if !ok {
-			return
-		}
+	for item := range ch23 {
 		fmt.Printf("%s, ", item)
 	}
 }
-
 func main() {
 	ch12 := make(chan string)
 	ch23 := make(chan string)
