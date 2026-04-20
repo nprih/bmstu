@@ -5,14 +5,19 @@ import (
 	"time"
 )
 
-func sleepyGopher(index int) {
+func sleepyGopher(index int, c chan int) {
 	time.Sleep(3 * time.Second)
-	fmt.Println("hrrr... #", index)
+	c <- index
 }
 
 func main() {
+	c := make(chan int)
+
 	for i := 0; i < 5; i++ {
-		go sleepyGopher(i)
+		go sleepyGopher(i, c)
 	}
-	time.Sleep(4 * time.Second)
+	for i := 0; i < 5; i++ {
+		gopherId := <-c
+		fmt.Printf("Gopher  %d finished work\n", gopherId)
+	}
 }
