@@ -1,17 +1,23 @@
 package main
 
 import (
-	"fmt"
+	"time"
 )
 
+func channelReader(ch chan int) {
+	for {
+		//fmt.Println(<-ch)
+	}
+
+}
+
 func main() {
-	ch := make(chan int, 3) //cap = 3
+	ch := make(chan int)
 
-	ch <- 1
-	ch <- 10 //len(ch) = 2, cap(ch) = 3
-	ch <- 20
+	go channelReader(ch)
+	for i := 0; i < 100; i++ {
+		ch <- i
+	}
 
-	fmt.Println(<-ch)
-	fmt.Println(<-ch)
-	fmt.Println(<-ch)
+	time.Sleep(100 * time.Second)
 }
