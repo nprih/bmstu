@@ -11,7 +11,7 @@ func main() {
 	var mu sync.Mutex
 	var wg sync.WaitGroup
 
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		go func(index int) {
 			mu.Lock()
@@ -23,5 +23,5 @@ func main() {
 	}
 
 	wg.Wait()
-	fmt.Println("Map lenth:", len(shared))
+	fmt.Println("Map length:", len(shared))
 }
