@@ -20,7 +20,7 @@ func main() {
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		go func(index int) {
-			str += strconv.Itoa(index)
+			str += strconv.Itoa(index) + "\n"
 			wg.Done()
 		}(i)
 		wg.Wait()
