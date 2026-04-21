@@ -17,6 +17,7 @@ func main() {
 	for i := 0; i < 5; i++ {
 		go sleepyGopher(i, ch)
 	}
+
 	timeout := time.After(3 * time.Second)
 
 	for i := 0; i < 5; i++ {
