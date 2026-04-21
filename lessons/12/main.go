@@ -2,31 +2,16 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 )
 
-func sleepyGopher(index int, ch chan int) {
-	time.Sleep(time.Duration(rand.Intn(6)) * time.Second)
-	ch <- index
-}
-
-// select
 func main() {
-	ch := make(chan int)
-	for i := 0; i < 5; i++ {
-		go sleepyGopher(i, ch)
-	}
+	ch := make(chan int, 3) //cap = 3
 
-	timeout := time.After(3 * time.Second)
+	ch <- 1
+	ch <- 10 //len(ch) = 2, cap(ch) = 3
+	ch <- 20
 
-	for i := 0; i < 5; i++ {
-		select {
-		case id := <-ch:
-			fmt.Printf("Gopher #%d finished\n", id)
-		case <-timeout:
-			fmt.Println("Timeout, sorry =(")
-			return
-		}
-	}
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
 }
