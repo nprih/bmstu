@@ -4,22 +4,23 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 )
 
-var sliceCities []string
-var indexCity int
+const quit = "exit"
+
+var cities []string
+var stop = ""
 var newCity string
-var serCity string
-var finCity string
+var search string
+
 var err error
 var setText = "Исходный слайс с городами: "
 var addText = "Введенный город добавлен:  "
 var delText = "Введенный город удален:    "
 
 func main() {
-	sliceCities = []string{
+	cities = []string{
 		"Москва",
 		"Санкт-Петербург",
 		"Можайск",
@@ -31,71 +32,96 @@ func main() {
 		"Лобня",
 		"Дмитров",
 	}
-	fmt.Printf("%s%v\n", setText, sliceCities)
+	fmt.Printf("%s%v\n\n", setText, cities)
 
-	inputAddCity()
+	addCity()
 
-	sliceCities = append(sliceCities, strings.TrimSpace(newCity))
-	sort.Strings(sliceCities)
+	if stop == quit {
+		return
+	}
 
-	fmt.Printf("%s%v\n", addText, sliceCities)
-
-	inputDeleteCity()
 	deleteCity()
-	fmt.Printf("%s%v\n", delText, sliceCities)
 
-	inputFindCity()
-	fmt.Println(finCity)
+	if stop == quit {
+		return
+	}
+
+	//findCity()
+
+}
+
+func addCity() {
+	inputAddCity()
+	if stop == quit {
+		return
+	}
+	cities = append(cities, strings.TrimSpace(newCity))
+	fmt.Printf("%s%v\n\n", addText, cities)
+}
+
+func deleteCity() {
+	inputDeleteCity()
+	if stop == quit {
+		return
+	}
+	exist, index := find()
+
+	if exist {
+		cities = append(cities[:index], cities[index+1:]...)
+		fmt.Printf("%s%v\n\n", delText, cities)
+	}
 
 }
 
 func inputAddCity() {
+	stop = ""
 	fmt.Print("Ведите город, который хотите добавить: ")
 	reader := bufio.NewReader(os.Stdin)
 	newCity, err = reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
+		stop = quit
 		return
 	}
 }
 
 func inputDeleteCity() {
+	stop = ""
 	fmt.Print("Ведите город, который хотите удалить: ")
 	reader := bufio.NewReader(os.Stdin)
-	serCity, err = reader.ReadString('\n')
+	search, err = reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
+		stop = quit
 		return
 	}
-}
-
-func inputFindCity() {
-	fmt.Print("Ведите город, который хотите удалить: ")
-	reader := bufio.NewReader(os.Stdin)
-	finCity, err = reader.ReadString('\n')
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-}
-
-func deleteCity() {
-	fmt.Println(serCity)
-	findCity()
-	sliceCities = append(sliceCities[:indexCity], sliceCities[indexCity+1:]...)
 }
 
 func findCity() {
-	indexCity = sort.SearchStrings(sliceCities, strings.TrimSpace(serCity))
-	if indexCity < len(sliceCities) {
-		if sliceCities[indexCity] != strings.TrimSpace(serCity) {
+	inputFindCity()
 
-			fmt.Println("Такой город не найден в данном слайсе")
-			return
-		}
-	} else {
-		fmt.Println("Такой город не найден в данном слайсе")
+	exist, index := find()
+	if exist {
+		fmt.Println(index)
+	}
+}
+func inputFindCity() {
+	fmt.Print("Ведите город, который хотите найти: ")
+	reader := bufio.NewReader(os.Stdin)
+	search, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
-	fmt.Println(indexCity)
+}
+
+func find() (bool, int) {
+	mapCities := make(map[string]int)
+	for i, city := range cities {
+		mapCities[city] = i
+	}
+	if index, exist := mapCities[strings.TrimSpace(newCity)]; exist {
+		return true, index
+	}
+	return false, 0
 }
