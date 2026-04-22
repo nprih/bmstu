@@ -13,6 +13,7 @@ var cities = []string{"Москва", "Балашиха", "Можайск", "А�
 var line = strings.Repeat("-", 100)
 var inpCity string
 var err error
+var res string
 
 func main() {
 	fmt.Printf("%s\n\n%s\n\n%s\n", line, "Список городов: ",
@@ -34,22 +35,24 @@ func deleteCity() {
 	exist, index := find()
 	if exist {
 		cities = append(cities[:index], cities[index+1:]...)
-		fmt.Printf("\n%s\n\nВведенный город (\"%s\") удален: \n\n%s\n", line, inpCity,
+		res = fmt.Sprintf("\n%s\n\nВведенный город (\"%s\") удален: \n\n%s\n", line, inpCity,
 			getCitiesColumn(false, 0))
 	} else {
-		fmt.Printf("\n%s\n\nГород \"%s\" не найден в списке\n\n%s\n\n", line, inpCity, line)
+		res = fmt.Sprintf("\n%s\n\nГород \"%s\" не найден в списке\n\n%s\n\n", line, inpCity, line)
 	}
+	fmt.Printf(res)
 }
 
 func findCity() {
 	inputCity("Ведите город, который хотите найти: ")
 	exist, index := find()
 	if exist {
-		fmt.Printf("\n%s\n\nВыбранный город (\"%s\") выделен в списке:\n\n%s\n", line, inpCity,
+		res = fmt.Sprintf("\n%s\n\nВыбранный город (\"%s\") выделен в списке:\n\n%s\n", line, inpCity,
 			getCitiesColumn(exist, index))
 	} else {
-		fmt.Printf("\n%s\n\nГород \"%s\" не найден в списке\n\n%s\n\n", line, inpCity, line)
+		res = fmt.Sprintf("\n%s\n\nГород \"%s\" не найден в списке\n\n%s\n\n", line, inpCity, line)
 	}
+	fmt.Printf(res)
 }
 
 func inputCity(message string) {
