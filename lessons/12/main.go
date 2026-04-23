@@ -20,10 +20,19 @@ func main() {
 	}
 	defer file.Close()
 
-	data, err := io.ReadAll(file)
-	if err != nil {
-		fmt.Println(err)
-		return
+	//data, err := io.ReadAll(file)
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+	//fmt.Println(string(data))
+	data := make([]byte, 64)
+	for {
+		n, err := file.Read(data)
+		if err == io.EOF {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println(string(data[:n]))
 	}
-	fmt.Println(string(data))
 }
