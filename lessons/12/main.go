@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"io"
 	"os"
 )
 
@@ -21,7 +19,9 @@ func main() {
 	}
 	defer file.Close()
 
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Enter text:")
-	io.Copy(file, reader)
+	var WhoAreu string
+	var IDidntAsk string
+	fmt.Fscanln(file, &WhoAreu)
+	fmt.Fscanln(file, &IDidntAsk)
+	fmt.Println(WhoAreu, IDidntAsk)
 }
