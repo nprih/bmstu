@@ -30,8 +30,7 @@ func main() {
 	for {
 		n, err := file.Read(data)
 		if err == io.EOF {
-			fmt.Println(err)
-			return
+			break
 		}
 		fmt.Println(string(data[:n]))
 	}
