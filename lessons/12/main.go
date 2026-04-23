@@ -19,9 +19,8 @@ func main() {
 	}
 	defer file.Close()
 
-	var WhoAreu string
-	var IDidntAsk string
-	fmt.Fscanln(file, &WhoAreu)
-	fmt.Fscanln(file, &IDidntAsk)
-	fmt.Println(WhoAreu, IDidntAsk)
+	err = os.MkdirAll("Work/test/test2/test3", 0777)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
