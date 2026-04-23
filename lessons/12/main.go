@@ -6,14 +6,19 @@ import (
 )
 
 func main() {
-	//reader := bufio.NewReader(os.Stdin)
-	//fmt.Print("Enter your name: ")
-	//input, err := reader.ReadString('\n')
+	//file, err := os.Create("test.txt")
 	//if err != nil {
 	//	fmt.Println(err)
 	//	return
 	//}
-	//fmt.Println(input)
 
-	fmt.Fprintln(os.Stdout, "Hello", "World")
+	_, err := os.Open("test.txt")
+	if err != nil {
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+	}
+	//file2, err := os.OpenFile("test.txt") создает с флагами и правами, если его нет
+
 }
