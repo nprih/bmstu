@@ -6,21 +6,17 @@ import (
 )
 
 func main() {
-	file, err := os.Open("test.txt")
+	file, err := os.OpenFile("test.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer file.Close()
-	stat, err := file.Stat()
+
+	text := "\nvvvvvvvvv"
+	_, err = file.WriteString(text)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("File name:", file.Name())
-	fmt.Println("File size:", stat.Size())
-	fmt.Println("File dir:", stat.IsDir())
-	fmt.Println("File mode:", stat.Mode())
-	fmt.Println("Mod time", stat.ModTime().Format("02.01.2006 15:04"))
-	fmt.Println("Mod time", stat.Sys())
 }
