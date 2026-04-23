@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -20,18 +21,7 @@ func main() {
 	}
 	defer file.Close()
 
-	//data, err := io.ReadAll(file)
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-	//fmt.Println(string(data))
-	data := make([]byte, 64)
-	for {
-		n, err := file.Read(data)
-		if err == io.EOF {
-			break
-		}
-		fmt.Println(string(data[:n]))
-	}
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("Enter text:")
+	io.Copy(file, reader)
 }
