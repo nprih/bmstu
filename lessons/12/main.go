@@ -6,19 +6,21 @@ import (
 )
 
 func main() {
-	//file, err := os.Create("test.txt")
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-
-	_, err := os.Open("test.txt")
+	file, err := os.Open("test.txt")
 	if err != nil {
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+		fmt.Println(err)
+		return
 	}
-	//file2, err := os.OpenFile("test.txt") создает с флагами и правами, если его нет
-
+	defer file.Close()
+	stat, err := file.Stat()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("File name:", file.Name())
+	fmt.Println("File size:", stat.Size())
+	fmt.Println("File dir:", stat.IsDir())
+	fmt.Println("File mode:", stat.Mode())
+	fmt.Println("Mod time", stat.ModTime().Format("02.01.2006 15:04"))
+	fmt.Println("Mod time", stat.Sys())
 }
