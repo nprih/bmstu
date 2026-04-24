@@ -1,0 +1,10 @@
+Downloads - это папка
+photos - это папка
+test.txt - это файл
+test2.txt - это файл
+
+Downloads - это папка
+photos - это папка
+test.txt - это файл
+test2.txt - это файл
+
