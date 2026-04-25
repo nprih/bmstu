@@ -24,7 +24,7 @@ func (account *CreditCard) GetParams() map[string]string {
 	return map[string]string{
 		"system":   account.PaySystem,
 		"id":       account.CardNumber,
-		"balance":  fmt.Sprintf("%.2f RUB", account.Balance),
+		"balance":  fmt.Sprintf("%.2f %s", account.Balance, RUB),
 		"currency": account.Currency,
 	}
 }
@@ -37,8 +37,8 @@ func (account *CreditCard) Process(amount float64) string {
 		return fmt.Sprintf(notEnoughMoney)
 	}
 	account.Balance -= amount
-	return fmt.Sprintf("Оплата картой #%s на сумму %.2f руб. успешно обработана. Баланс карты: %.2f",
-		account.CardNumber, amount, account.Balance)
+	return fmt.Sprintf("Оплата картой #%s на сумму %.2f %s. успешно обработана. Баланс карты: %.2f %s",
+		account.CardNumber, amount, RUB, account.Balance, RUB)
 }
 
 type CryptoWallet struct {
@@ -52,7 +52,7 @@ func (account *CryptoWallet) GetParams() map[string]string {
 	return map[string]string{
 		"system":   account.PaySystem,
 		"id":       account.WalletId,
-		"balance":  fmt.Sprintf("%e BTC", account.Balance),
+		"balance":  fmt.Sprintf("%e %s", account.Balance, BTC),
 		"currency": account.Currency,
 	}
 }
@@ -66,8 +66,8 @@ func (account *CryptoWallet) Process(amount float64) string {
 		return fmt.Sprintf(notEnoughMoney)
 	}
 	account.Balance -= cryptAmount
-	return fmt.Sprintf("Оплата кошельком #%s на сумму %.2f RUB. (%.e %s) успешно обработана. Баланс: %e",
-		account.WalletId, amount, cryptAmount, account.Currency, account.Balance)
+	return fmt.Sprintf("Оплата кошельком #%s на сумму %.2f %s. (%.e %s) успешно обработана. Баланс: %e %s",
+		account.WalletId, amount, RUB, cryptAmount, account.Currency, account.Balance, BTC)
 }
 
 var accounts = []PaymentProcessor{
@@ -83,18 +83,6 @@ var accounts = []PaymentProcessor{
 		Balance:   20000.00 * course,
 		Currency:  BTC,
 	},
-	&CreditCard{
-		PaySystem:  "Банковская карта",
-		CardNumber: "2222 3333 4444 5555",
-		Balance:    10000,
-		Currency:   RUB,
-	},
-	&CryptoWallet{
-		PaySystem: "Виртуальный кошелек",
-		WalletId:  "123456789123456789",
-		Balance:   5000.00 * course,
-		Currency:  BTC,
-	},
 }
 
 func main() {
@@ -107,7 +95,7 @@ func runApp() {
 			processor.GetParams()["id"], processor.GetParams()["balance"])
 		amounts := []float64{500.00, -500.00, 1200.00, 75.50, 5000.00}
 		for _, amount := range amounts {
-			fmt.Printf("Платёж %.2f RUB: %s\n", amount, processor.Process(amount))
+			fmt.Printf("Платёж %.2f %s: %s\n", amount, RUB, processor.Process(amount))
 		}
 		fmt.Println()
 	}
