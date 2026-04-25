@@ -3,8 +3,10 @@ package main
 import "fmt"
 
 const course = 1 / 5828215.00 //на 26.04.2026
-const negativeMoney = "Ошибка: Сумма платежа должна быть положительной"
-const notEnoughMoney = "Ошибка: У Вас не достаточно средств."
+const BTC = "BTC"
+const RUB = "RUB"
+const negativeMoney = "Ошибка: сумма платежа должна быть положительной"
+const notEnoughMoney = "Ошибка: у Вас не достаточно средств."
 
 type PaymentProcessor interface {
 	GetParams() map[string]string
@@ -20,9 +22,11 @@ type CreditCard struct {
 
 func (account *CreditCard) GetParams() map[string]string {
 	return map[string]string{
-		"system":  account.PaySystem,
-		"id":      account.CardNumber,
-		"balance": fmt.Sprintf("%.2f RUB", account.Balance)}
+		"system":   account.PaySystem,
+		"id":       account.CardNumber,
+		"balance":  fmt.Sprintf("%.2f RUB", account.Balance),
+		"currency": account.Currency,
+	}
 }
 
 func (account *CreditCard) Process(amount float64) string {
@@ -46,9 +50,10 @@ type CryptoWallet struct {
 
 func (account *CryptoWallet) GetParams() map[string]string {
 	return map[string]string{
-		"system":  account.PaySystem,
-		"id":      account.WalletId,
-		"balance": fmt.Sprintf("%e BTC", account.Balance),
+		"system":   account.PaySystem,
+		"id":       account.WalletId,
+		"balance":  fmt.Sprintf("%e BTC", account.Balance),
+		"currency": account.Currency,
 	}
 }
 
@@ -70,25 +75,25 @@ var accounts = []PaymentProcessor{
 		PaySystem:  "Банковская карта",
 		CardNumber: "1111 2222 3333 4444",
 		Balance:    5000,
-		Currency:   "RUB",
+		Currency:   RUB,
 	},
 	&CryptoWallet{
 		PaySystem: "Виртуальный кошелек",
 		WalletId:  "987654321987654321",
 		Balance:   20000.00 * course,
-		Currency:  "BTC",
+		Currency:  BTC,
 	},
 	&CreditCard{
 		PaySystem:  "Банковская карта",
 		CardNumber: "2222 3333 4444 5555",
 		Balance:    10000,
-		Currency:   "RUB",
+		Currency:   RUB,
 	},
 	&CryptoWallet{
 		PaySystem: "Виртуальный кошелек",
 		WalletId:  "123456789123456789",
 		Balance:   5000.00 * course,
-		Currency:  "BTC",
+		Currency:  BTC,
 	},
 }
 
