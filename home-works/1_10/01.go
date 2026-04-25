@@ -16,7 +16,7 @@ type CreditCard struct {
 	Balance    float64
 }
 
-func (account CreditCard) GetParams() map[string]string {
+func (account *CreditCard) GetParams() map[string]string {
 	return map[string]string{
 		"system":  account.PaySystem,
 		"id":      account.CardNumber,
@@ -39,7 +39,7 @@ type CryptoWallet struct {
 	Balance   float64
 }
 
-func (account CryptoWallet) GetParams() map[string]string {
+func (account *CryptoWallet) GetParams() map[string]string {
 	return map[string]string{
 		"system":  account.PaySystem,
 		"id":      account.WalletId,
