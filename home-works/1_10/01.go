@@ -12,7 +12,6 @@ type PaymentProcessor interface {
 type CreditCard struct {
 	PaySystem  string
 	CardNumber string
-	CVV        string
 	Currency   string
 	Balance    float64
 }
@@ -23,6 +22,7 @@ func (account CreditCard) GetParams() map[string]string {
 		"id":      account.CardNumber,
 		"balance": fmt.Sprintf("%.2f RUB", account.Balance)}
 }
+
 func (account *CreditCard) Process(amount float64) string {
 	if amount <= 0 {
 		return fmt.Sprintf("Ошибка: Сумма платежа должна быть положительной")
@@ -61,7 +61,6 @@ var accounts = []PaymentProcessor{
 	&CreditCard{
 		PaySystem:  "Банковская карта",
 		CardNumber: "1111 2222 3333 4444",
-		CVV:        "123",
 		Balance:    5000,
 		Currency:   "RUB",
 	},
