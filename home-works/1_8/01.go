@@ -23,7 +23,7 @@ func main() {
 	fmt.Println(res)
 }
 
-func inputFloat() (dividend string, divisor string, err error) {
+func inputText() (dividend string, divisor string, err error) {
 	fmt.Print("Введите делимое: ")
 	reader := bufio.NewReader(os.Stdin)
 	text1, err := reader.ReadString('\n')
@@ -41,7 +41,7 @@ func inputFloat() (dividend string, divisor string, err error) {
 }
 
 func strToFloat() (dividend float64, divisor float64, err error) {
-	str1, str2, err := inputFloat()
+	str1, str2, err := inputText()
 	if err != nil {
 		return
 	}
