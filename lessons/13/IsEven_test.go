@@ -3,17 +3,21 @@ package main
 import "testing"
 
 func TestIsEven(t *testing.T) {
-	result1 := IsEven(2)
-	if result1 != "Yes" {
-		t.Errorf("Incorrect resilt, got: %s, but want: %s", result1, "Yes")
+	var testsCases = []struct {
+		description string
+		input       int
+		want        string
+	}{
+		{"Positive test on 2", 2, "Yes"},
+		{"Positive test on 3", 3, "No"},
+		{"Positive test on 0", 0, "Yes"},
 	}
-	t.Log("Test with param 2 ok")
-
-	result2 := IsEven(3)
-	if result2 != "No" {
-		t.Errorf("Incorrect resilt, got: %s, but want: %s", result2, "No")
-	} else {
-		t.Log("Test with param 3 fail")
+	for _, tt := range testsCases {
+		t.Run(tt.description, func(t *testing.T) {
+			result := IsEven(tt.input)
+			if result != tt.want {
+				t.Errorf("Incorrect test, want %s, but got %s ", result, tt.want)
+			}
+		})
 	}
-
 }
