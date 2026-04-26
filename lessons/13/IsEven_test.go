@@ -32,7 +32,7 @@ func BenchmarkInsertXInMapInterface1000(b *testing.B) {
 	}
 }
 
-func BenchmarkInsertXInInterfaceMap100(b *testing.B) {
+func BenchmarkInsertXInMapInterfaceMap100(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		InsertXInMapInterface(100, b)
 	}

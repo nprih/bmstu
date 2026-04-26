@@ -3,7 +3,7 @@ package main
 import "testing"
 
 func InsertXInMap(x int, b *testing.B) {
-	testMap := make(map[int]int)
+	testMap := make(map[int]int, x)
 	b.ResetTimer()
 	for i := 0; i < x; i++ {
 		testMap[i] = i
@@ -11,7 +11,7 @@ func InsertXInMap(x int, b *testing.B) {
 }
 
 func InsertXInMapInterface(x int, b *testing.B) {
-	testMap := make(map[any]int)
+	testMap := make(map[int]int)
 	b.ResetTimer()
 	for i := 0; i < x; i++ {
 		testMap[i] = i
