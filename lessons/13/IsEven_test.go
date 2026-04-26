@@ -12,6 +12,8 @@ func TestIsEven(t *testing.T) {
 	result2 := IsEven(3)
 	if result2 != "No" {
 		t.Errorf("Incorrect resilt, got: %s, but want: %s", result2, "No")
+	} else {
+		t.Log("Test with param 3 fail")
 	}
-	t.Log("Test with param 3 fail")
+
 }
