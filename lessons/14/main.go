@@ -7,7 +7,7 @@ import (
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "This is main page")
+	http.ServeFile(w, r, "templates/main.html")
 }
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This is about page")
