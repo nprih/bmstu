@@ -2,12 +2,31 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 )
 
+type User struct {
+	Name string
+	City string
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "templates/main.html")
+	user := User{Name: "Peter", City: "Mahachcala"}
+	tmpl, err := template.ParseFiles("templates/main.html")
+
+	if err != nil {
+		log.Println(err)
+		fmt.Fprintln(w, err)
+		return
+	}
+
+	if err = tmpl.Execute(w, user); err != nil {
+		log.Println(err)
+		fmt.Fprintln(w, err)
+		return
+	}
 }
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "This is about page")
