@@ -13,8 +13,9 @@ type User struct {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	user := User{Name: "Peter", City: "Mahachcala"}
-	tmpl, err := template.ParseFiles("templates/main.html")
+	//user := User{Name: "Peter", City: "Mahachcala"}
+	time := 10
+	tmpl, err := template.ParseFiles("templates/index.html")
 
 	if err != nil {
 		log.Println(err)
@@ -22,7 +23,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err = tmpl.Execute(w, user); err != nil {
+	if err = tmpl.Execute(w, time); err != nil {
 		log.Println(err)
 		fmt.Fprintln(w, err)
 		return
