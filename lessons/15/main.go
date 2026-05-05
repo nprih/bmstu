@@ -2,30 +2,40 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
 
+type NewWriter struct {
+	w   io.Writer
+	err error
+}
+
+func (nw *NewWriter) WriteNewLine(line string) {
+	if nw.err != nil {
+		return
+	}
+	_, nw.err = fmt.Fprintln(nw.w, line)
+}
 func WriteToFile(name string) error {
 	f, err := os.Create(name)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	_, err = fmt.Fprintln(f, "Lesson 15 golang")
-	if err != nil {
-		fmt.Println(err)
-		f.Close()
-		return err
+	defer f.Close()
+	nw := NewWriter{
+		w: f,
 	}
-	//some logic
-	_, err = fmt.Fprintln(f, "Finished Writing")
-	if err != nil {
-		fmt.Println(err)
-		f.Close()
-		return err
-	}
-	f.Close()
-	return nil
+	nw.WriteNewLine("lesson 15 go")
+	nw.WriteNewLine("hello")
+	nw.WriteNewLine("This")
+	nw.WriteNewLine("is")
+	nw.WriteNewLine("best")
+	nw.WriteNewLine("BMSTU")
+	nw.WriteNewLine("Course")
+	nw.WriteNewLine("that's all")
+	return nw.err
 }
 
 func main() {

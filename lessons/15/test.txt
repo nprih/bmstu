@@ -1,2 +1,8 @@
-Lesson 15 golang
-Finished Writing
+lesson 15 go
+hello
+This
+is
+best
+BMSTU
+Course
+that's all
