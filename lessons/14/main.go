@@ -40,6 +40,7 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/about", aboutHandler)
 	http.HandleFunc("/contacts", contactsHandler)
+
 	log.Println("Server starting...")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		fmt.Println(err)
