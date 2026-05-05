@@ -16,7 +16,7 @@ func main() {
 	defer func() {
 		r := recover()
 		if r != nil {
-			fmt.Print("Panic was:", r)
+			fmt.Println("Panic was:", r)
 		}
 	}()
 	var arr [2]int
