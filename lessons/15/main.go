@@ -3,32 +3,21 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
 )
 
-var errInF3 = fmt.Errorf("I'm error in f3")
-var errInF2 = fmt.Errorf("Error while calling f3: %w", errInF3)
+func readConfig() (string, error) {
+	_, err := os.ReadFile("./config.json")
+	if err != nil {
+		fmt.Println(err)
+		return "", fmt.Errorf("File not in directory: %w", err)
+	}
+	return "", nil
+}
 
-func f1() error {
-	err := f2()
-	if err != nil {
-		return fmt.Errorf("Error while calling f2: %w", err)
-	}
-	return nil
-}
-func f2() error {
-	err := f3() //
-	if err != nil {
-		return errInF2
-	}
-	return nil
-}
-func f3() error {
-	return errInF3
-}
 func main() {
-	err := f1()
-
-	if errors.Is(err, errInF2) {
-		fmt.Println("Yes, it is")
+	_, err := readConfig()
+	if errors.Is(err, os.ErrNotExist) {
+		fmt.Println("OMG! Not exists")
 	}
 }
