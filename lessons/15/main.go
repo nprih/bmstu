@@ -4,14 +4,22 @@ import "fmt"
 
 func badFunc() {
 	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("It was panic, but i'm stronger", r)
+		r := recover()
+		if r != nil {
+			fmt.Println("It was panic, but i am stronger")
 			fmt.Println("panic was: ", r)
 		}
 	}()
-	panic("I'm bad function")
+	panic("I am panic Dmitry, HI")
 }
-
 func main() {
-	badFunc()
+	defer func() {
+		r := recover()
+		if r != nil {
+			fmt.Print("Panic was:", r)
+		}
+	}()
+	var arr [2]int
+	i := 2
+	arr[i] = 0 //panic
 }
