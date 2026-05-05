@@ -1,23 +1,27 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-type newError struct{}
-
-func (newerr newError) Error() string {
-	return "This is new Error"
+func f1() error {
+	err := f2()
+	if err != nil {
+		return fmt.Errorf("Error while calling f2: %w", err)
+	}
+	return nil
 }
-
-func someFunc() error {
-	var NextGenError newError
-	return NextGenError
+func f2() error {
+	err := f3() //
+	if err != nil {
+		return fmt.Errorf("Error while calling f3: %w", err)
+	}
+	return nil
 }
-
+func f3() error {
+	return fmt.Errorf("I'm error in f3")
+}
 func main() {
-	err := fmt.Errorf("Some %s", "Error") // error - interface -> Error()
-	//err = errors.New(fmt.Sprintf("Another %s", "Error"))
-	fmt.Println(someFunc())
-
+	err := f1()
+	if err != nil {
+		fmt.Println(err)
+	}
 }
