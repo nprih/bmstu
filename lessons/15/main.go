@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+var errInF3 = fmt.Errorf("I'm error in f3")
 
 func f1() error {
 	err := f2()
@@ -17,11 +22,12 @@ func f2() error {
 	return nil
 }
 func f3() error {
-	return fmt.Errorf("I'm error in f3")
+	return errInF3
 }
 func main() {
 	err := f1()
-	if err != nil {
-		fmt.Println(err)
+
+	if errors.Is(err, errInF3) {
+		fmt.Println("Yes, it is")
 	}
 }
