@@ -18,14 +18,14 @@ func (nw *NewWriter) WriteNewLine(line string) {
 	_, nw.err = fmt.Fprintln(nw.w, line)
 }
 func WriteToFile(name string) error {
-	f, err := os.Create(name)
+	file, err := os.Create(name)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	defer f.Close()
+	defer file.Close()
 	nw := NewWriter{
-		w: f,
+		w: file,
 	}
 	nw.WriteNewLine("lesson 15 go")
 	nw.WriteNewLine("hello")
