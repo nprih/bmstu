@@ -3,21 +3,26 @@ package main
 import (
 	"errors"
 	"fmt"
-	"os"
 )
 
-func readConfig() (string, error) {
-	_, err := os.ReadFile("./config.json")
-	if err != nil {
-		fmt.Println(err)
-		return "", fmt.Errorf("File not in directory: %w", err)
-	}
-	return "", nil
+type MyError struct {
+	Code int
+	Text string
+}
+
+func (e *MyError) Error() string {
+	return e.Text
+}
+
+func doSomething() error {
+	return &MyError{Code: 404, Text: "Not found"}
 }
 
 func main() {
-	_, err := readConfig()
-	if errors.Is(err, os.ErrNotExist) {
-		fmt.Println("OMG! Not exists")
+	err := doSomething()
+	var customError *MyError
+	if errors.As(err, &customError) {
+		fmt.Println(customError.Code)
+		fmt.Println(customError.Text)
 	}
 }
