@@ -7,7 +7,9 @@ import (
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+		//http.NotFound(w, r)
+		//w.WriteHeader(http.StatusNotFound)
+		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	}
 	w.Write([]byte("Index page"))
