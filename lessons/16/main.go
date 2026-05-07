@@ -33,7 +33,7 @@ func contactsHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Адрес в Москве: Беговая 19"))
 		return
 	case action == "address" && city == "spb":
-		w.Write([]byte("Адрес в Питере: Невский проспект 12"))
+		w.Write([]byte("Адрес в Питере: Большая монетная 3"))
 		return
 	}
 }
