@@ -8,10 +8,10 @@ import (
 )
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		w.WriteHeader(http.StatusNotFound)
-		return
-	}
+	//if r.URL.Path != "/" {
+	//	w.WriteHeader(http.StatusNotFound)
+	//	return
+	//}
 	http.ServeFile(w, r, "form.html")
 }
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
