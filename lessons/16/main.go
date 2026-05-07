@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -38,8 +39,14 @@ func contactsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
+func getHelloHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello my friend, i dont know ur email =("))
+}
 
+func postHelloHandler(w http.ResponseWriter, r *http.Request) {
+	name := r.PostFormValue("name")
+	email := r.PostFormValue("email")
+	fmt.Fprintf(w, "Hello %s, ur email: %s", name, email)
 }
 
 func main() {
@@ -47,7 +54,8 @@ func main() {
 	router.HandleFunc("/", indexHandler)
 	router.HandleFunc("/about", aboutHandler)
 	router.HandleFunc("/contacts/{action}/{city}", contactsHandler)
-	router.HandleFunc("/hello", helloHandler)
+	router.HandleFunc("/hello", getHelloHandler).Methods("GET")
+	router.HandleFunc("/hello", postHelloHandler).Methods("POST")
 
 	log.Println("Server starting...")
 	if err := http.ListenAndServe(":8080", router); err != nil {
