@@ -12,7 +12,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
-	w.Write([]byte("Index page"))
+	http.ServeFile(w, r, "form.html")
 }
 func aboutHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("About page"))
@@ -37,11 +37,17 @@ func contactsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", indexHandler)
 	router.HandleFunc("/about", aboutHandler)
 	router.HandleFunc("/contacts/{action}/{city}", contactsHandler)
+	router.HandleFunc("/hello", helloHandler)
 
 	log.Println("Server starting...")
 	if err := http.ListenAndServe(":8080", router); err != nil {
