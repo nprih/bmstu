@@ -19,6 +19,7 @@ func contactsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Contacts page"))
 }
 func main() {
+	//chi
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", indexHandler)
 	mux.HandleFunc("/about", aboutHandler)
