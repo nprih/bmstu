@@ -12,12 +12,12 @@ import (
 var DivideByZero = errors.New("на ноль делить нельзя, так сказал калькулятор")
 
 func main() {
-	dividend, divisor, err := strToFloat()
+	dividend, divisor, err := StrToFloat()
 	if err != nil {
 		return
 	}
 
-	res, dividingByZero := divide(dividend, divisor)
+	res, dividingByZero := Divide(dividend, divisor)
 	if dividingByZero != nil {
 		fmt.Printf("Ошибка: %s!\n", dividingByZero)
 		return
@@ -42,7 +42,7 @@ func inputText() (dividend string, divisor string, err error) {
 	return strings.TrimSpace(text1), strings.TrimSpace(text2), err
 }
 
-func strToFloat() (dividend float64, divisor float64, err error) {
+func StrToFloat() (dividend float64, divisor float64, err error) {
 	str1, str2, err := inputText()
 	if err != nil {
 		return
@@ -60,7 +60,7 @@ func strToFloat() (dividend float64, divisor float64, err error) {
 	return dividend, divisor, err
 }
 
-func divide(dividend float64, divisor float64) (result float64, err error) {
+func Divide(dividend float64, divisor float64) (result float64, err error) {
 	if divisor == 0 {
 		return 0, DivideByZero
 	}
