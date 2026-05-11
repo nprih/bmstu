@@ -19,7 +19,11 @@ func GetRandomArg() (slices [][]int) {
 		nums = nums[:0]
 		countInt := rand.Intn(5) + 1
 		for i := 0; i <= countInt; i++ {
-			nums = append(nums, rand.Intn(10)+1)
+			if i%2 == 0 {
+				nums = append(nums, (-1)*rand.Intn(10)+1)
+			} else {
+				nums = append(nums, rand.Intn(10)+1)
+			}
 		}
 		slices = append(slices, nums)
 	}
