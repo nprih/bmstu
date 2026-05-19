@@ -28,16 +28,27 @@ type Order struct {
 	Width  string `json:"width"`
 	Name   string `json:"name"`
 	Status string `json:"status"`
+	UserId int    `json:"user_id"`
 }
 
 func getUsersHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(Users)
+	err := json.NewEncoder(w).Encode(Users)
+	if err != nil {
+		return
+	}
 }
 
 func getOrdersHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	w.Write([]byte("orders"))
+	w.Header().Set("Content-Type", "application/json")
+	orders := []Order{}
+	for _, user := range Users {
+		orders = append(orders, user.Orders...)
+	}
+	err := json.NewEncoder(w).Encode(orders)
+	if err != nil {
+		return
+	}
 }
 
 func createUsersHandler(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +124,7 @@ func main() {
 	http.HandleFunc("POST /api/v1/orders", createOrdersHandler)
 
 	log.Println("Server starting...")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8090", nil); err != nil {
 		fmt.Println(err)
 	}
 }
