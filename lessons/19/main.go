@@ -10,6 +10,20 @@ package main
 7) OPTION - узнать допустимые методы
 */
 
+/*
+[
+	{1, Alise, 22}
+	{2, James, 23}
+	{3, Arnold, 21}
+]
+	REST API, значит чтобы достать Alice
+	GET /users/1 -> {1, Alise, 22}
+	PUT    /users/1 -> request body: {"id": 1,
+									  "name": Alise Smith,
+									  "age": 23}
+	PATCH  /users/1 -> request body: {"age":23}
+*/
+
 func main() {
 
 }
