@@ -16,7 +16,7 @@ package main
 	для результата - актуальный статус код
 
 4 Многоуровневый доступ
-	client -> [Load balancer] -> [API gateway] -> [Service]
+	client -> [Load balancer] -> [API gateway] -> [Middleware] -> [Service]
 */
 
 func main() {
