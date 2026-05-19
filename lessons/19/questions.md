@@ -9,7 +9,7 @@ Object_order имеет поля: id, length, width, name, status
 
 Чтобы заполучить свойство length (объекта Object_order) имея в распоряжении только Object_user,
 мне достаточно написать следующую конструкцию (упрощенно, конечно): Object_user->Object_order->length
-По такому же принципу доступны и методы вложенных объектов (Object_user->Object_order->setlength($someLength)
+По такому же принципу доступны и методы вложенных объектов (Object_user->Object_order->setLength($someLength)
 
 А возможен ли подобный подход в Go?
 ЗЫ: В JS, если не путаю, подобный принцип тоже присутствует, там только вместо "->" используется "."
