@@ -1,22 +1,20 @@
 package main
 
 /*
-1 Идентификация через URI
-	/users/67
-	/users/
-	/users/67/contacts
-
-2 Манипуляция ресурсами через представления
-	JSON, XML, HTML и т.п.
-
-3 Все сообщения самодокументируемые
-	Content-type
-	HTTP-Method
-
-	для результата - актуальный статус код
-
-4 Многоуровневый доступ
-	client -> [Load balancer] -> [API gateway] -> [Middleware] -> [Service]
+	URI
+	(+)
+	GET  /api/v1/users
+	GET  /api/v1/users/67
+	GET  /api/v1/users/67/orders
+	POST /api/v1/users
+	(-)
+	GET  /api/v1/getUsers //глаголы - вери бэд
+	GET  /api/v1/user/67 //множ число
+	POST /api/v1/users/createUser //дублирование метода
+	GET  /api/v1/Users/67 //Заглавные буквы
+	GET /api/v1/user-profiles
+	GET /api/users
+		api-version: v2
 */
 
 func main() {
