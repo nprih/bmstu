@@ -1,28 +1,15 @@
 package main
 
 /*
-POST /api/v1/users
-Host: example.com
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-Accept: application/json
-
-	{
-	  "name": "Alice",
-	  "email": "alice@example.com"
-	}
-
-HTTP/1.1 201 Created
-Content-Type: application/json
-Location: /api/v1/users/42
-
-	{
-	  "id": 42,
-	  "name": "Alice",
-	  "email": "alice@example.com",
-	  "created_at": "2024-01-15T10:30:00Z"
-	}
+1) GET - получить ресурс
+2) HEAD - то же самое, что и get, но без тела - только заголовок
+3) POST - создать новую запись
+4) PUT - заменить запись на новую целиком
+5) PATCH/UPDATE - частичная замена
+6) DELETE - удалить запись
+7) OPTION - узнать допустимые методы
 */
+
 func main() {
 
 }
