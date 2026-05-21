@@ -15,3 +15,36 @@ Object_order имеет поля: id, length, width, name, status
 А возможен ли подобный подход в Go?
 ЗЫ: В JS, если не путаю, подобный принцип тоже присутствует, там только вместо "->" используется ".", как и в Go, 
 как и во всех C-подобных языках.
+
+type Order struct {
+id     int
+length int
+width  int
+name   string
+status string
+}
+type User struct {
+id      int
+name    string
+mail    string
+age     int
+balance int
+orders  []Order
+}
+func main() {
+newUser := User{
+id:      1,
+name:    "User",
+mail:    "user@user.ee",
+age:     12,
+balance: 13,
+orders: []Order{
+{
+id:     2,
+name:   "Phone",
+status: "In base",
+},
+},
+}
+fmt.Println(newUser.orders[0].name)
+}
