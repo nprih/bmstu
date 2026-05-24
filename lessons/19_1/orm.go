@@ -62,17 +62,35 @@ func main() {
 	/*
 		UPDATE
 	*/
+	//var user User
+	//res := db.First(&user, 1)
+	//if res.Error != nil {
+	//	fmt.Println(res.Error)
+	//	return
+	//}
+	//user.Age = 20
+	//user.Firstname = "Andrew"
+	//res = db.Save(&user)
+	//if res.Error != nil {
+	//	fmt.Println(res.Error)
+	//	return
+	//}
+
+	/*
+		DELETE
+	*/
 	var user User
 	res := db.First(&user, 1)
 	if res.Error != nil {
 		fmt.Println(res.Error)
 		return
 	}
-	user.Age = 20
-	user.Firstname = "Andrew"
-	res = db.Save(&user)
+	res = db.Delete(&user)
 	if res.Error != nil {
 		fmt.Println(res.Error)
-		return
+	} else if res.RowsAffected == 0 {
+		fmt.Println("No such user")
+	} else {
+		fmt.Println("Delete Success")
 	}
 }
