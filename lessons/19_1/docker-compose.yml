@@ -100,7 +100,7 @@ networks:
 # docker-compose --compatibility up -d
 # -------------------------------
 # Access to Postgres:
-# localhost:5433
+# localhost:5432
 # Username: postgres (as a default)
 # Password: changeme (as a default)
 # -------------------------------
