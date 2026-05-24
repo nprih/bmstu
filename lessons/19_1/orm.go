@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -49,15 +48,16 @@ func main() {
 	/*
 		SELECT + WHERE
 	*/
-	//var users []User
+	var users []User
 	//res := db.Where("firstname = ?", "Dmitry").Find(&users)
-	//if res.Error != nil {
-	//	log.Println(res.Error)
-	//	return
-	//}
-	//for _, user := range users {
-	//	log.Printf("Name: %s, Surname: %s, Age: %d", user.Firstname, user.Lastname, user.Age)
-	//}
+	res := db.Find(&users)
+	if res.Error != nil {
+		log.Println(res.Error)
+		return
+	}
+	for _, user := range users {
+		log.Printf("Name: %s, Surname: %s, Age: %d", user.Firstname, user.Lastname, user.Age)
+	}
 
 	/*
 		UPDATE
@@ -79,18 +79,18 @@ func main() {
 	/*
 		DELETE
 	*/
-	var user User
-	res := db.First(&user, 1)
-	if res.Error != nil {
-		fmt.Println(res.Error)
-		return
-	}
-	res = db.Delete(&user)
-	if res.Error != nil {
-		fmt.Println(res.Error)
-	} else if res.RowsAffected == 0 {
-		fmt.Println("No such user")
-	} else {
-		fmt.Println("Delete Success")
-	}
+	//var user User
+	//res := db.First(&user, 1)
+	//if res.Error != nil {
+	//	fmt.Println(res.Error)
+	//	return
+	//}
+	//res = db.Delete(&user)
+	//if res.Error != nil {
+	//	fmt.Println(res.Error)
+	//} else if res.RowsAffected == 0 {
+	//	fmt.Println("No such user")
+	//} else {
+	//	fmt.Println("Delete Success")
+	//}
 }
