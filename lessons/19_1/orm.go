@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -57,4 +58,21 @@ func main() {
 	//for _, user := range users {
 	//	log.Printf("Name: %s, Surname: %s, Age: %d", user.Firstname, user.Lastname, user.Age)
 	//}
+
+	/*
+		UPDATE
+	*/
+	var user User
+	res := db.First(&user, 1)
+	if res.Error != nil {
+		fmt.Println(res.Error)
+		return
+	}
+	user.Age = 20
+	user.Firstname = "Andrew"
+	res = db.Save(&user)
+	if res.Error != nil {
+		fmt.Println(res.Error)
+		return
+	}
 }
