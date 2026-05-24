@@ -29,6 +29,9 @@ func main() {
 		return
 	}
 
+	/*
+		INSERT
+	*/
 	//dmitry := User{
 	//	Firstname: "Ivan",
 	//	Lastname:  "Kukushkin",
@@ -42,13 +45,16 @@ func main() {
 	//}
 	//fmt.Println("User", dmitry.Firstname, "added to db")
 
-	var users []User
-	res := db.Find(&users)
-	if res.Error != nil {
-		log.Println(res.Error)
-		return
-	}
-	for _, user := range users {
-		log.Printf("Name: %s, Surname: %s, Age: %d", user.Firstname, user.Lastname, user.Age)
-	}
+	/*
+		SELECT + WHERE
+	*/
+	//var users []User
+	//res := db.Where("firstname = ?", "Dmitry").Find(&users)
+	//if res.Error != nil {
+	//	log.Println(res.Error)
+	//	return
+	//}
+	//for _, user := range users {
+	//	log.Printf("Name: %s, Surname: %s, Age: %d", user.Firstname, user.Lastname, user.Age)
+	//}
 }
