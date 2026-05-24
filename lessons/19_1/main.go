@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 import _ "modernc.org/sqlite"
+import _ "github.com/lib/pq"
 
 type Phone struct {
 	Id     int
@@ -14,14 +15,20 @@ type Phone struct {
 }
 
 func main() {
-	db, err := sql.Open("sqlite", "phones")
+	pgConfig := "user=postgres password=changeme dbname=postgres sslmode=disable port=5432"
+	db, err := sql.Open("postgres", pgConfig)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer db.Close()
 
-	_, err = db.Exec("INSERT INTO phones (vendor, model, price) VALUES (?, ?, ?)", "Apple", "iPhone 12", 7000)
+	err = db.Ping()
+	if err != nil {
+		fmt.Println("ping", err)
+	}
+
+	_, err = db.Exec("INSERT INTO phones (vendor, model, price) VALUES ($1, $2, $3)", "Apple", "iPhone 12", 7000)
 	if err != nil {
 		fmt.Println(err)
 		return
