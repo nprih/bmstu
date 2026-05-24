@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -30,16 +29,26 @@ func main() {
 		return
 	}
 
-	dmitry := User{
-		Firstname: "Dmitry",
-		Lastname:  "Verevkin",
-		Email:     "dmitriy@mail.ru",
-		Age:       30,
-	}
-	res := db.Create(&dmitry)
+	//dmitry := User{
+	//	Firstname: "Ivan",
+	//	Lastname:  "Kukushkin",
+	//	Email:     "Ivan@mail.ru",
+	//	Age:       30,
+	//}
+	//res := db.Create(&dmitry)
+	//if res.Error != nil {
+	//	log.Println(res.Error)
+	//	return
+	//}
+	//fmt.Println("User", dmitry.Firstname, "added to db")
+
+	var users []User
+	res := db.Find(&users)
 	if res.Error != nil {
 		log.Println(res.Error)
 		return
 	}
-	fmt.Println("User", dmitry.Firstname, "added to db")
+	for _, user := range users {
+		log.Printf("Name: %s, Surname: %s, Age: %d", user.Firstname, user.Lastname, user.Age)
+	}
 }
