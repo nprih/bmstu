@@ -7,6 +7,14 @@ import (
 	"gorm.io/gorm"
 )
 
+type user struct {
+	gorm.Model
+	Firstname string
+	Lastname  string
+	Email     string
+	Age       int
+}
+
 func main() {
 	pgConfig := "host=localhost user=postgres password=changeme dbname=postgres port=5432"
 
@@ -15,4 +23,5 @@ func main() {
 		log.Println(err)
 		return
 	}
+
 }
