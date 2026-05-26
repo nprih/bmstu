@@ -4,11 +4,14 @@ package user;
 
 message UserRequest {
   int32 id = 1;
-
 }
 
 message UserResponse {
   int32 id = 1;
   string name = 2;
   string surname = 3;
+}
+
+service UserService {
+  rpc GetUserById (UserRequest) returns (UserResponse);
 }
