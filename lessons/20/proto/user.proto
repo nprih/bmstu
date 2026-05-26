@@ -4,23 +4,11 @@ package user;
 
 message UserRequest {
   int32 id = 1;
-//  optional string stats = 2;
+
 }
 
 message UserResponse {
   int32 id = 1;
   string name = 2;
   string surname = 3;
-//  message Credo {
-//    string email = 1;
-//    string password = 2;
-//  }
-//  enum Status {
-//    ENABLED = 0;
-//    DISABLED = 1;
-//  }
 }
-
-//message UserResponses {
-//  repeated UserResponse users = 1;
-//}
