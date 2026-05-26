@@ -4,6 +4,7 @@ package user;
 
 message UserRequest {
   int32 id = 1;
+//  optional string stats = 2;
 }
 
 message UserResponse {
