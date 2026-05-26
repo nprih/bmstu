@@ -19,3 +19,7 @@ message UserResponse {
 //    DISABLED = 1;
 //  }
 }
+
+//message UserResponses {
+//  repeated UserResponse users = 1;
+//}
