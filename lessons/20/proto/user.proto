@@ -14,4 +14,8 @@ message UserResponse {
 //    string email = 1;
 //    string password = 2;
 //  }
+//  enum Status {
+//    ENABLED = 0;
+//    DISABLED = 1;
+//  }
 }
