@@ -1,10 +1,9 @@
 package main
 
 import (
+	"2_7/argon2"
 	"bufio"
-	"crypto/rand"
 	"database/sql"
-	"encoding/base64"
 	"errors"
 	"fmt"
 	"log"
@@ -12,42 +11,8 @@ import (
 	"strings"
 	"unicode"
 
-	"golang.org/x/crypto/argon2"
 	_ "modernc.org/sqlite"
 )
-
-type Argon2Params struct {
-	Memory      uint32
-	Iterations  uint32
-	Parallelism uint8
-	SaltLength  uint32
-	KeyLength   uint32
-}
-
-func HashPasswordArgon2(password string) (string, error) {
-	params := &Argon2Params{
-		Memory:      64 * 1024,
-		Iterations:  3,
-		Parallelism: 2,
-		SaltLength:  16,
-		KeyLength:   32,
-	}
-
-	salt := make([]byte, params.SaltLength)
-	if _, err := rand.Read(salt); err != nil {
-		return "", err
-	}
-
-	hash := argon2.IDKey([]byte(password), salt, params.Iterations, params.Memory, params.Parallelism, params.KeyLength)
-
-	b64Salt := base64.RawStdEncoding.EncodeToString(salt)
-	b64Hash := base64.RawStdEncoding.EncodeToString(hash)
-
-	encodedHash := fmt.Sprintf("$argon2id$v=19$m=%d,t=%d,p=%d$%s$%s",
-		params.Memory, params.Iterations, params.Parallelism, b64Salt, b64Hash)
-
-	return encodedHash, nil
-}
 
 type User struct {
 	Id       int64
@@ -80,7 +45,7 @@ func getDefaultUsers() []User {
 func usersHashingPass() []User {
 	users := getDefaultUsers()
 	for i, user := range users {
-		users[i].Password, _ = HashPasswordArgon2(user.Password)
+		users[i].Password, _ = argon2.HashPasswordArgon2(user.Password)
 	}
 	return users
 }
@@ -144,7 +109,12 @@ func auth(pare Pare) {
 		return
 	}
 
-	fmt.Println(user.Password)
+	ok, _ := argon2.CheckPasswordArgon2(pare.Password, user.Password)
+	if !ok {
+		fmt.Println("Пароль неверный")
+		return
+	}
+	fmt.Println("Пароль верный")
 }
 
 func findUserByLogin(login string) (User, error) {
