@@ -106,15 +106,10 @@ func insertDefaultUsers() {
 
 	query := `INSERT INTO users (email, password) VALUES ` + strings.Join(placeholders, ", ")
 
-	//result, err := db.Exec(query, args...)
 	_, err = db.Exec(query, args...)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	//lastID, _ := result.LastInsertId()
-	//rowsAffected, _ := result.RowsAffected()
-	//log.Printf("Last inserted ID: %d, Rows affected: %d", lastID, rowsAffected)
 }
 
 func clearDb(db *sql.DB) {
