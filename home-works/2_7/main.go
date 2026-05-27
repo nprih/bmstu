@@ -4,6 +4,7 @@ import (
 	"2_7/argon2"
 	"2_7/dbConnection"
 	"2_7/input"
+	"2_7/models"
 	"errors"
 	"fmt"
 	"log"
@@ -12,29 +13,8 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-var defaultUsers = []User{
-	{
-		Email:    "first@test.ru",
-		Password: "123321",
-	},
-	{
-		Email:    "second@test.ru",
-		Password: "123qwe",
-	},
-	{
-		Email:    "third@test.ru",
-		Password: "ASD123",
-	},
-}
-
-type User struct {
-	Id       int64
-	Email    string
-	Password string
-}
-
-func usersHashingPass() []User {
-	users := defaultUsers
+func usersHashingPass() []models.User {
+	users := models.DefaultUsers
 	for i, user := range users {
 		users[i].Password, _ = argon2.HashPasswordArgon2(user.Password)
 	}
@@ -81,24 +61,24 @@ func auth(pare input.Pare) {
 	fmt.Println("Пароль верный")
 }
 
-func findUserByLogin(login string) (User, error) {
+func findUserByLogin(login string) (models.User, error) {
 	err, db := dbConnection.DbConnection()
 	if err != nil {
 		fmt.Println(err)
-		return User{}, err
+		return models.User{}, err
 	}
 	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM users WHERE email = $1", login)
 	if err != nil {
 		fmt.Println(err)
-		return User{}, err
+		return models.User{}, err
 	}
 	defer rows.Close()
 
-	users := []User{}
+	users := []models.User{}
 	for rows.Next() {
-		user := User{}
+		user := models.User{}
 		err := rows.Scan(&user.Id, &user.Email, &user.Password)
 		if err != nil {
 			fmt.Println(err)
@@ -110,7 +90,7 @@ func findUserByLogin(login string) (User, error) {
 		return users[0], nil
 	}
 
-	return User{}, errors.New(fmt.Sprintf("\nПользователь \"%s\" не найден", login))
+	return models.User{}, errors.New(fmt.Sprintf("\nПользователь \"%s\" не найден", login))
 }
 
 func main() {
