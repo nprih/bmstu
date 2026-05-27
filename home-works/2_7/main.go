@@ -132,7 +132,36 @@ func toLowerCase(text string) string {
 }
 
 func auth(pare []string) {
-	fmt.Println(pare)
+
+	fmt.Println(findUserByLogin(pare[0]))
+}
+
+func findUserByLogin(login string) (User, error) {
+	err, db := dbConnection()
+	if err != nil {
+		fmt.Println(err)
+		return User{}, err
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT * FROM users WHERE email = $1", login)
+	if err != nil {
+		fmt.Println(err)
+		return User{}, err
+	}
+	defer rows.Close()
+
+	users := []User{}
+	for rows.Next() {
+		user := User{}
+		err := rows.Scan(&user.Id, &user.Email, &user.Password)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		users = append(users, user)
+	}
+	return users[0], nil
 }
 
 func inputAuth() (error, []string) {
