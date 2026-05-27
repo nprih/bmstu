@@ -5,8 +5,6 @@ import (
 	"2_7/db"
 	"2_7/input"
 	"fmt"
-
-	_ "modernc.org/sqlite"
 )
 
 func main() {
