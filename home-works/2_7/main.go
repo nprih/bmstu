@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"database/sql"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -142,6 +143,7 @@ func auth(pare Pare) {
 		fmt.Println(err)
 		return
 	}
+
 	fmt.Println(user.Password)
 }
 
@@ -170,11 +172,15 @@ func findUserByLogin(login string) (User, error) {
 		}
 		users = append(users, user)
 	}
-	return users[0], nil
+	if len(users) != 0 {
+		return users[0], nil
+	}
+
+	return User{}, errors.New(fmt.Sprintf("\nПользователь \"%s\" не найден", login))
 }
 
 func inputAuth() (error, Pare) {
-	fmt.Print("Введите логин (email): ")
+	fmt.Print("Введите логин(email): ")
 	reader := bufio.NewReader(os.Stdin)
 	login, err := reader.ReadString('\n')
 	if err != nil {
