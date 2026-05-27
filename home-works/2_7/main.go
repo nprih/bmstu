@@ -135,15 +135,13 @@ func auth(pare []string) {
 	fmt.Println(pare)
 }
 
-func main() {
-	insertDefaultUsers()
-
+func inputAuth() (error, []string) {
 	fmt.Print("Введите логин (email): ")
 	reader := bufio.NewReader(os.Stdin)
 	login, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
-		return
+		return err, nil
 	}
 	login = toLowerCase(strings.TrimSpace(login))
 
@@ -151,10 +149,21 @@ func main() {
 	pass, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
-		return
+		return err, nil
 	}
 	pass = strings.TrimSpace(pass)
 
-	auth([]string{login, pass})
+	return nil, []string{login, pass}
+}
 
+func main() {
+	insertDefaultUsers()
+
+	err, pare := inputAuth()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	auth(pare)
 }
