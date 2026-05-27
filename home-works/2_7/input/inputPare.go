@@ -1,7 +1,7 @@
 package input
 
 import (
-	"2_7/function"
+	"2_7/functions"
 	"bufio"
 	"fmt"
 	"os"
@@ -21,7 +21,7 @@ func InputAuth() (error, Pare) {
 		fmt.Println(err)
 		return err, Pare{}
 	}
-	login = function.ToLowerCase(strings.TrimSpace(login))
+	login = functions.ToLowerCase(strings.TrimSpace(login))
 
 	fmt.Print("Введите пароль: ")
 	pass, err := reader.ReadString('\n')

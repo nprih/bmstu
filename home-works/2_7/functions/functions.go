@@ -1,4 +1,4 @@
-package function
+package functions
 
 import (
 	"2_7/argon2"
