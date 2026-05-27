@@ -3,6 +3,7 @@ package main
 import (
 	"2_7/argon2"
 	"2_7/dbConnection"
+	"2_7/function"
 	"bufio"
 	"database/sql"
 	"errors"
@@ -10,7 +11,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"unicode"
 
 	_ "modernc.org/sqlite"
 )
@@ -87,14 +87,6 @@ func clearDb(db *sql.DB) {
 	}
 }
 
-func toLowerCase(text string) string {
-	char := []rune(text)
-	for i := range char {
-		char[i] = unicode.ToLower(char[i])
-	}
-	return string(char)
-}
-
 func auth(pare Pare) {
 	user, err := findUserByLogin(pare.Login)
 	if err != nil {
@@ -150,7 +142,7 @@ func inputAuth() (error, Pare) {
 		fmt.Println(err)
 		return err, Pare{}
 	}
-	login = toLowerCase(strings.TrimSpace(login))
+	login = function.ToLowerCase(strings.TrimSpace(login))
 
 	fmt.Print("Введите пароль: ")
 	pass, err := reader.ReadString('\n')
