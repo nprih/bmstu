@@ -1,4 +1,4 @@
-package dbConnection
+package db
 
 import (
 	"2_7/functions"

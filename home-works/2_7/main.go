@@ -2,7 +2,7 @@ package main
 
 import (
 	"2_7/argon2"
-	"2_7/dbConnection"
+	"2_7/db"
 	"2_7/input"
 	"2_7/models"
 	"errors"
@@ -27,7 +27,7 @@ func auth(pare input.Pare) {
 }
 
 func findUserByLogin(login string) (models.User, error) {
-	err, db := dbConnection.DbConnection()
+	err, db := db.DbConnection()
 	if err != nil {
 		fmt.Println(err)
 		return models.User{}, err
@@ -59,7 +59,7 @@ func findUserByLogin(login string) (models.User, error) {
 }
 
 func main() {
-	dbConnection.AddDefaultUsers()
+	db.AddDefaultUsers()
 
 	err, pare := input.InputAuth()
 	if err != nil {
