@@ -22,7 +22,7 @@ func ClearDb(db *sql.DB) {
 }
 
 func AddDefaultUsers() {
-	err, db := DbConnection()
+	err, db := Connection()
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -47,7 +47,7 @@ func AddDefaultUsers() {
 }
 
 func FindUserByLogin(login string) (models.User, error) {
-	err, db := DbConnection()
+	err, db := Connection()
 	if err != nil {
 		fmt.Println(err)
 		return models.User{}, err
