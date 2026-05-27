@@ -3,13 +3,11 @@ package main
 import (
 	"2_7/argon2"
 	"2_7/dbConnection"
-	"2_7/function"
-	"bufio"
+	"2_7/input"
 	"database/sql"
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 
 	_ "modernc.org/sqlite"
@@ -18,11 +16,6 @@ import (
 type User struct {
 	Id       int64
 	Email    string
-	Password string
-}
-
-type Pare struct {
-	Login    string
 	Password string
 }
 
@@ -87,7 +80,7 @@ func clearDb(db *sql.DB) {
 	}
 }
 
-func auth(pare Pare) {
+func auth(pare input.Pare) {
 	user, err := findUserByLogin(pare.Login)
 	if err != nil {
 		fmt.Println(err)
@@ -134,31 +127,10 @@ func findUserByLogin(login string) (User, error) {
 	return User{}, errors.New(fmt.Sprintf("\nПользователь \"%s\" не найден", login))
 }
 
-func inputAuth() (error, Pare) {
-	fmt.Print("Введите логин(email): ")
-	reader := bufio.NewReader(os.Stdin)
-	login, err := reader.ReadString('\n')
-	if err != nil {
-		fmt.Println(err)
-		return err, Pare{}
-	}
-	login = function.ToLowerCase(strings.TrimSpace(login))
-
-	fmt.Print("Введите пароль: ")
-	pass, err := reader.ReadString('\n')
-	if err != nil {
-		fmt.Println(err)
-		return err, Pare{}
-	}
-	pass = strings.TrimSpace(pass)
-
-	return nil, Pare{login, pass}
-}
-
 func main() {
 	addDefaultUsers()
 
-	err, pare := inputAuth()
+	err, pare := input.InputAuth()
 	if err != nil {
 		fmt.Println(err)
 		return
