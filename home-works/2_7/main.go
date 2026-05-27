@@ -10,11 +10,11 @@ import (
 func main() {
 	db.AddDefaultUsers()
 
-	err, pare := input.InputAuth()
+	err, pair := input.InputAuth()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	auth.Auth(pare)
+	auth.Auth(pair)
 }
