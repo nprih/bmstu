@@ -4,7 +4,6 @@ import (
 	"2_7/argon2"
 	"2_7/dbConnection"
 	"2_7/input"
-	"database/sql"
 	"errors"
 	"fmt"
 	"log"
@@ -50,7 +49,7 @@ func addDefaultUsers() {
 	}
 	defer db.Close()
 
-	clearDb(db)
+	dbConnection.ClearDb(db)
 
 	var placeholders []string
 	var args []interface{}
@@ -62,17 +61,6 @@ func addDefaultUsers() {
 	query := `INSERT INTO users (email, password) VALUES ` + strings.Join(placeholders, ", ")
 
 	_, err = db.Exec(query, args...)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func clearDb(db *sql.DB) {
-	_, err := db.Exec("DELETE FROM users")
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, err = db.Exec("DELETE FROM sqlite_sequence WHERE name = 'users'")
 	if err != nil {
 		log.Fatal(err)
 	}
