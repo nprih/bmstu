@@ -3,6 +3,7 @@ package main
 import (
 	"2_7/argon2"
 	"2_7/dbConnection"
+	"2_7/function"
 	"2_7/input"
 	"2_7/models"
 	"errors"
@@ -12,14 +13,6 @@ import (
 
 	_ "modernc.org/sqlite"
 )
-
-func usersHashingPass() []models.User {
-	users := models.DefaultUsers
-	for i, user := range users {
-		users[i].Password, _ = argon2.HashPasswordArgon2(user.Password)
-	}
-	return users
-}
 
 func addDefaultUsers() {
 	err, db := dbConnection.DbConnection()
@@ -33,7 +26,7 @@ func addDefaultUsers() {
 
 	var placeholders []string
 	var args []interface{}
-	for _, user := range usersHashingPass() {
+	for _, user := range function.UsersHashingPass() {
 		placeholders = append(placeholders, "(?, ?)")
 		args = append(args, user.Email, user.Password)
 	}
