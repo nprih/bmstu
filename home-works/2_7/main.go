@@ -124,7 +124,6 @@ func clearDb(db *sql.DB) {
 }
 
 func toLowerCase(text string) string {
-	text = strings.TrimSpace(text)
 	char := []rune(text)
 	for i := range char {
 		char[i] = unicode.ToLower(char[i])
@@ -132,15 +131,30 @@ func toLowerCase(text string) string {
 	return string(char)
 }
 
+func auth(pare []string) {
+	fmt.Println(pare)
+}
+
 func main() {
 	insertDefaultUsers()
 
-	fmt.Print("Введите логин (всё что до символа: '@' в указанном вами email): ")
+	fmt.Print("Введите логин (email): ")
 	reader := bufio.NewReader(os.Stdin)
 	login, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(toLowerCase(login))
+	login = toLowerCase(strings.TrimSpace(login))
+
+	fmt.Print("Введите пароль: ")
+	pass, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	pass = strings.TrimSpace(pass)
+
+	auth([]string{login, pass})
+
 }
