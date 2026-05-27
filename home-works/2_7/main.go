@@ -13,31 +13,29 @@ import (
 	_ "modernc.org/sqlite"
 )
 
+var defaultUsers = []User{
+	{
+		Email:    "first@test.ru",
+		Password: "123321",
+	},
+	{
+		Email:    "second@test.ru",
+		Password: "123qwe",
+	},
+	{
+		Email:    "third@test.ru",
+		Password: "ASD123",
+	},
+}
+
 type User struct {
 	Id       int64
 	Email    string
 	Password string
 }
 
-func getDefaultUsers() []User {
-	return []User{
-		{
-			Email:    "first@test.ru",
-			Password: "123321",
-		},
-		{
-			Email:    "second@test.ru",
-			Password: "123qwe",
-		},
-		{
-			Email:    "third@test.ru",
-			Password: "ASD123",
-		},
-	}
-}
-
 func usersHashingPass() []User {
-	users := getDefaultUsers()
+	users := defaultUsers
 	for i, user := range users {
 		users[i].Password, _ = argon2.HashPasswordArgon2(user.Password)
 	}
