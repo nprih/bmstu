@@ -2,6 +2,7 @@ package main
 
 import (
 	"2_7/argon2"
+	"2_7/dbConnection"
 	"bufio"
 	"database/sql"
 	"errors"
@@ -50,16 +51,8 @@ func usersHashingPass() []User {
 	return users
 }
 
-func dbConnection() (error, *sql.DB) {
-	db, err := sql.Open("sqlite", "users")
-	if err != nil {
-		return err, db
-	}
-	return nil, db
-}
-
-func insertDefaultUsers() {
-	err, db := dbConnection()
+func addDefaultUsers() {
+	err, db := dbConnection.DbConnection()
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -118,7 +111,7 @@ func auth(pare Pare) {
 }
 
 func findUserByLogin(login string) (User, error) {
-	err, db := dbConnection()
+	err, db := dbConnection.DbConnection()
 	if err != nil {
 		fmt.Println(err)
 		return User{}, err
@@ -171,7 +164,7 @@ func inputAuth() (error, Pare) {
 }
 
 func main() {
-	insertDefaultUsers()
+	addDefaultUsers()
 
 	err, pare := inputAuth()
 	if err != nil {
