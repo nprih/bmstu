@@ -54,6 +54,11 @@ type User struct {
 	Password string
 }
 
+type Pare struct {
+	Login    string
+	Password string
+}
+
 func getDefaultUsers() []User {
 	return []User{
 		{
@@ -131,9 +136,13 @@ func toLowerCase(text string) string {
 	return string(char)
 }
 
-func auth(pare []string) {
-
-	fmt.Println(findUserByLogin(pare[0]))
+func auth(pare Pare) {
+	user, err := findUserByLogin(pare.Login)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(user.Password)
 }
 
 func findUserByLogin(login string) (User, error) {
@@ -164,13 +173,13 @@ func findUserByLogin(login string) (User, error) {
 	return users[0], nil
 }
 
-func inputAuth() (error, []string) {
+func inputAuth() (error, Pare) {
 	fmt.Print("Введите логин (email): ")
 	reader := bufio.NewReader(os.Stdin)
 	login, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
-		return err, nil
+		return err, Pare{}
 	}
 	login = toLowerCase(strings.TrimSpace(login))
 
@@ -178,11 +187,11 @@ func inputAuth() (error, []string) {
 	pass, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
-		return err, nil
+		return err, Pare{}
 	}
 	pass = strings.TrimSpace(pass)
 
-	return nil, []string{login, pass}
+	return nil, Pare{login, pass}
 }
 
 func main() {
