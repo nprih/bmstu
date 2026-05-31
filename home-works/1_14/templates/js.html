@@ -1,19 +1,20 @@
 <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
 
 <script>
-        var pathname = $(location).attr('pathname');
-        var selected
-        $('.nav-link').removeClass('active');
-        switch (pathname) {
-            case "/":
-                selected = ($('.nav-link:contains("Главная")'));
-                break;
-            case "/login":
-                selected = ($('.nav-link:contains("Войти")'));
-                break;
-            case "/register":
-                selected = ($('.nav-link:contains("Регистрация")'));
-                break;
-        }
-        selected.addClass('active');
+    let pathname = $(location).attr('pathname');
+    let selected
+    $('.nav-link').removeClass('active');
+    switch (pathname) {
+        case "/":
+            selected = $('.nav-link:contains("Главная")');
+            break;
+        case "/login":
+            selected = $('.nav-link:contains("Войти")');
+            break;
+        case "/register":
+            selected = $('.nav-link:contains("Регистрация")');
+            break;
+    }
+    selected.addClass('active');
+
 </script>

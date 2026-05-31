@@ -52,5 +52,23 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Index"))
+	tmpl, err := template.ParseFiles(
+		"templates/css.html",
+		"templates/head.html",
+		"templates/header.html",
+		"templates/register.html",
+		"templates/js.html",
+	)
+	if err != nil {
+		log.Println(err)
+		fmt.Fprintln(w, err)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "register.html", "")
+	if err != nil {
+		log.Println(err)
+		fmt.Fprintln(w, err)
+		return
+	}
 }
