@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
@@ -61,7 +62,7 @@ func PostLoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	w.Write(body)
+	json.NewEncoder(w).Encode(string(body))
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {

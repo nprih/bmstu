@@ -17,6 +17,19 @@
     }
     selected.addClass('active');
 
-
+    $('.login').on('click', function () {
+        let login = $('#loginUsername')[0].value;
+        let pass = $('#loginPassword')[0].value;
+        $.ajax({
+            url: '/login',
+            type: "POST",
+            data: { 'login': login, 'pass': pass },
+            dataType: 'json',
+            async: false,
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    })
 
 </script>
