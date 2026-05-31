@@ -344,42 +344,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><strong>#101</strong></td>
-                    <td>Анна Кузнецова</td>
-                    <td>12.03.2025</td>
-                    <td><span class="badge badge-success">Online</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#102</strong></td>
-                    <td>Дмитрий Соколов</td>
-                    <td>18.03.2025</td>
-                    <td><span class="badge badge-danger">Offline</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#103</strong></td>
-                    <td>Елена Волкова</td>
-                    <td>22.03.2025</td>
-                    <td><span class="badge badge-success">Online</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#104</strong></td>
-                    <td>Игорь Морозов</td>
-                    <td>01.04.2025</td>
-                    <td><span class="badge badge-warning">2 часа назад</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#105</strong></td>
-                    <td>Мария Белова</td>
-                    <td>05.04.2025</td>
-                    <td><span class="badge badge-neutral">Никогда</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#106</strong></td>
-                    <td>Сергей Петров</td>
-                    <td>10.04.2025</td>
-                    <td><span class="badge badge-success">Online</span></td>
-                </tr>
+                    {{ range . }}
+                        <tr>
+                            <td><strong>{{ .Id }}</strong></td>
+                            <td>{{ .Name }}</td>
+                            <td>{{ .Created }}</td>
+                            <td><span class="badge badge-success">{{ .WasOnline }}</span></td>
+                        </tr>
+                    {{ end }}
                 </tbody>
             </table>
         </div>
