@@ -15,6 +15,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		"templates/main.html",
 		"templates/js.html",
 	)
+
 	if err != nil {
 		log.Println(err)
 		fmt.Fprintln(w, err)
