@@ -294,12 +294,9 @@
                             required
                     >
                         <option value="" disabled selected>— Выберите клиента —</option>
-                        <option value="101">#101 — Анна Кузнецова</option>
-                        <option value="102">#102 — Дмитрий Соколов</option>
-                        <option value="103">#103 — Елена Волкова</option>
-                        <option value="104">#104 — Игорь Морозов</option>
-                        <option value="105">#105 — Мария Белова</option>
-                        <option value="106">#106 — Сергей Петров</option>
+                        {{ range .}}
+                            <option value="101">{{ .Id }} — {{ .Name }}</option>
+                        {{ end }}
                     </select>
                 </div>
 

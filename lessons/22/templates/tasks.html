@@ -260,14 +260,14 @@
                 </thead>
                 <tbody>
                 {{ range .}}
-                <tr>
-                    <td><strong>{{.Id}}</strong></td>
-                    <td>{{.ClientId}}</td>
-                    <td>{{.Text}}</td>
-                    <td>{{.Created}}</td>
-                    <td>{{.Answer}}</td>
-                    <td>{{.Done}}</td>
-                </tr>
+                    <tr>
+                        <td><strong>{{ .Id }}</strong></td>
+                        <td>{{ .ClientId }}</td>
+                        <td>{{ .Text }}</td>
+                        <td>{{ .Created }}</td>
+                        <td>{{ .Answer }}</td>
+                        <td>{{ .Done }}</td>
+                    </tr>
                 {{ end }}
                 </tbody>
             </table>

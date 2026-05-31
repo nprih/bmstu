@@ -48,8 +48,8 @@ func CreateTaskHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err)
 		return
 	}
-
-	if err = tmpl.Execute(w, ""); err != nil {
+	clients := db.SelectAllClients()
+	if err = tmpl.Execute(w, clients); err != nil {
 		log.Println(err)
 		fmt.Fprintln(w, err)
 		return
