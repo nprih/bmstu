@@ -1,3 +1,3 @@
-module 14_1
+module vkr
 
 go 1.26.1
