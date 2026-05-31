@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Task | Проект</title>
+    <style>
+        :root {
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --primary: #4a6cf7;
+            --primary-hover: #3651d5;
+            --text: #2d3748;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --success: #48bb78;
+            --danger: #f56565;
+            --radius: 10px;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            --transition: 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 2rem;
+        }
+
+        .navbar-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 0.4rem;
+            list-style: none;
+        }
+        .navbar-links a {
+            display: block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .navbar-links a:hover {
+            background: #edf2f7;
+            color: var(--primary);
+        }
+        .navbar-links a.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            margin-bottom: 1.8rem;
+        }
+        .page-header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .page-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 1rem;
+            background: #fafbfc;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background: #fff;
+            color: var(--text);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        select.form-control {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 14px;
+            padding-right: 2.5rem;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.7rem 1.6rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(74, 108, 247, 0.3);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .form-card {
+            max-width: 600px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #2d3748;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .toast.success {
+            background: #48bb78;
+        }
+        .toast.error {
+            background: #f56565;
+        }
+
+        @media (max-width: 700px) {
+            .navbar-inner {
+                flex-direction: column;
+                height: auto;
+                padding: 0.8rem 0;
+                gap: 0.5rem;
+            }
+            .navbar-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .navbar-links a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+            .container {
+                padding: 0 0.8rem;
+                margin: 1rem auto;
+            }
+            .card-body {
+                padding: 1.2rem;
+            }
+            .form-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ НАВИГАЦИЯ ═══════════ -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/home" class="navbar-brand">📋 Project Manager</a>
+        <ul class="navbar-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/tasks">Tasks</a></li>
+            <li><a href="/create-task" class="active">Create Task</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ═══════════ КОНТЕНТ: CREATE TASK ═══════════ -->
+<div class="container">
+    <div class="page-header">
+        <h1>➕ Создать задачу</h1>
+        <p>Заполните форму, чтобы создать новую задачу для клиента.</p>
+    </div>
+
+    <div class="card form-card">
+        <div class="card-header">
+            📝 Новая задача
+        </div>
+        <div class="card-body">
+            <form id="createTaskForm" novalidate>
+                <!-- Выпадающий список: clientId -->
+                <div class="form-group">
+                    <label for="clientId">👤 Client ID</label>
+                    <select
+                            id="clientId"
+                            name="clientId"
+                            class="form-control"
+                            required
+                    >
+                        <option value="" disabled selected>— Выберите клиента —</option>
+                        <option value="101">#101 — Анна Кузнецова</option>
+                        <option value="102">#102 — Дмитрий Соколов</option>
+                        <option value="103">#103 — Елена Волкова</option>
+                        <option value="104">#104 — Игорь Морозов</option>
+                        <option value="105">#105 — Мария Белова</option>
+                        <option value="106">#106 — Сергей Петров</option>
+                    </select>
+                </div>
+
+                <!-- Поле ввода текста -->
+                <div class="form-group">
+                    <label for="taskText">📄 Текст задачи</label>
+                    <textarea
+                            id="taskText"
+                            name="text"
+                            class="form-control"
+                            placeholder="Опишите задачу..."
+                            required
+                    ></textarea>
+                </div>
+
+                <!-- Кнопка Submit -->
+                <button type="submit" class="btn btn-primary" id="submitBtn">
+                    🚀 Отправить (POST)
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Toast-уведомление -->
+<div class="toast" id="toast"></div>
+
+<script>
+    (function() {
+        const form = document.getElementById('createTaskForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const toast = document.getElementById('toast');
+        const clientSelect = document.getElementById('clientId');
+        const textArea = document.getElementById('taskText');
+
+        /**
+         * Показать toast-уведомление
+         */
+        function showToast(message, type = 'success') {
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        /**
+         * Сбросить форму
+         */
+        function resetForm() {
+            form.reset();
+            clientSelect.selectedIndex = 0;
+        }
+
+        /**
+         * Обработчик отправки формы — POST-запрос
+         */
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Валидация
+            if (!clientSelect.value) {
+                showToast('⚠️ Пожалуйста, выберите клиента (Client ID).', 'error');
+                clientSelect.focus();
+                return;
+            }
+            if (!textArea.value.trim()) {
+                showToast('⚠️ Пожалуйста, введите текст задачи.', 'error');
+                textArea.focus();
+                return;
+            }
+
+            // Блокируем кнопку на время запроса
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Отправка...';
+
+            // Данные для POST
+            const payload = {
+                clientId: parseInt(clientSelect.value, 10),
+                text: textArea.value.trim(),
+            };
+
+            try {
+                // ── POST-запрос ──
+                const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('✅ Ответ сервера:', data);
+
+                showToast('✅ Задача успешно создана! ID: ' + data.id, 'success');
+                resetForm();
+            } catch (error) {
+                console.error('❌ Ошибка:', error);
+                showToast('❌ Ошибка сети или сервера: ' + error.message, 'error');
+            } finally {
+                // Разблокируем кнопку
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Отправить (POST)';
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>
