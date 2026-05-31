@@ -259,54 +259,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{ range .}}
                 <tr>
-                    <td><strong>#1</strong></td>
-                    <td>101</td>
-                    <td>Обновить дизайн лендинга</td>
-                    <td>15.04.2025</td>
-                    <td>Готово, жду правок</td>
-                    <td><span class="badge badge-success">✅ Да</span></td>
+                    <td><strong>{{.Id}}</strong></td>
+                    <td>{{.ClientId}}</td>
+                    <td>{{.Text}}</td>
+                    <td>{{.Created}}</td>
+                    <td>{{.Answer}}</td>
+                    <td>{{.Done}}</td>
                 </tr>
-                <tr>
-                    <td><strong>#2</strong></td>
-                    <td>102</td>
-                    <td>Настроить сервер</td>
-                    <td>16.04.2025</td>
-                    <td><span class="text-muted">— нет ответа —</span></td>
-                    <td><span class="badge badge-danger">❌ Нет</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#3</strong></td>
-                    <td>103</td>
-                    <td>Создать телеграм-бота</td>
-                    <td>17.04.2025</td>
-                    <td>В процессе</td>
-                    <td><span class="badge badge-warning">⏳ В работе</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#4</strong></td>
-                    <td>101</td>
-                    <td>Интеграция с CRM</td>
-                    <td>18.04.2025</td>
-                    <td>Сделано</td>
-                    <td><span class="badge badge-success">✅ Да</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#5</strong></td>
-                    <td>105</td>
-                    <td>Редизайн иконок</td>
-                    <td>19.04.2025</td>
-                    <td><span class="text-muted">— нет ответа —</span></td>
-                    <td><span class="badge badge-danger">❌ Нет</span></td>
-                </tr>
-                <tr>
-                    <td><strong>#6</strong></td>
-                    <td>104</td>
-                    <td>Написать документацию</td>
-                    <td>20.04.2025</td>
-                    <td>На проверке</td>
-                    <td><span class="badge badge-warning">⏳ В работе</span></td>
-                </tr>
+                {{ end }}
                 </tbody>
             </table>
         </div>
