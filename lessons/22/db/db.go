@@ -1,21 +1,45 @@
-package main
+package db
 
-type Client struct {
-	Id        int
-	Name      string
-	Created   string
-	WasOnline string
+import (
+	"database/sql"
+	"log"
+
+	_ "modernc.org/sqlite"
+)
+
+func SelectAllClients() []Client {
+	db, err := sql.Open("sqlite", "lesson22")
+	if err != nil {
+		log.Println(err)
+		return []Client{}
+	}
+	defer db.Close()
+
+	err = db.Ping()
+	if err != nil {
+		log.Println("ping", err)
+	}
+
+	rows, err := db.Query("SELECT * FROM clients")
+	if err != nil {
+		log.Println(err)
+		return []Client{}
+	}
+	defer rows.Close()
+
+	clients := []Client{}
+	for rows.Next() {
+		client := Client{}
+		err := rows.Scan(&client.Id, &client.Name, &client.Created, &client.WasOnline)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		clients = append(clients, client)
+	}
+	return clients
 }
 
-type Task struct {
-	Id       int
-	ClientId int
-	Text     string
-	Created  string
-	Answer   string
-	Done     int
-}
-
-func main() {
+func SelectAllTask() []Task {
 
 }

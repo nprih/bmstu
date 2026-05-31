@@ -6,3 +6,6 @@ https://github.com/golang-course/lesson22
 на странице home: таблица с полями id, name, created, wasOnline;
 на странице tasks:  таблица с полями Id, clientId, text, created, answer, done;
 на странице create task: форма для ввода и кнопка submit для POST запроса: в форме есть ячейка с lable="clientId" - с выпадающим список, и поле ввода текста.
+
+
+go run cmd/main.go 
