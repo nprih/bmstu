@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 )
@@ -30,7 +31,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
+func GetLoginHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles(
 		"templates/css.html",
 		"templates/head.html",
@@ -50,6 +51,17 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err)
 		return
 	}
+}
+
+func PostLoginHandler(w http.ResponseWriter, r *http.Request) {
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Can't read body", http.StatusBadRequest)
+		return
+	}
+	defer r.Body.Close()
+
+	w.Write(body)
 }
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
