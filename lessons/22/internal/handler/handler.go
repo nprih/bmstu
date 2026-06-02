@@ -56,7 +56,9 @@ func CreateTaskHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	} else if r.Method == http.MethodPost {
-		//логика обработки формы
+		id := r.FormValue("clientId")
+		text := r.FormValue("text")
+		fmt.Println(id, text)
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
