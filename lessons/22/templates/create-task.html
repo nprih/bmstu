@@ -283,7 +283,7 @@
             📝 Новая задача
         </div>
         <div class="card-body">
-            <form id="createTaskForm" novalidate>
+            <form id="createTaskForm" novalidate method="POST" action="/create-task">
                 <!-- Выпадающий список: clientId -->
                 <div class="form-group">
                     <label for="clientId">👤 Client ID</label>
@@ -295,7 +295,7 @@
                     >
                         <option value="" disabled selected>— Выберите клиента —</option>
                         {{ range .}}
-                            <option value="101">{{ .Id }} — {{ .Name }}</option>
+                            <option value="101">{{ .Id }}</option>
                         {{ end }}
                     </select>
                 </div>
