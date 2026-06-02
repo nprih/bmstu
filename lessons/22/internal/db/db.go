@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "modernc.org/sqlite"
@@ -77,4 +78,21 @@ func SelectAllTask() []Task {
 		tasks = append(tasks, task)
 	}
 	return tasks
+}
+
+func CreateNewTask(newTask Task) error {
+	db, err := sql.Open("sqlite", "lesson22")
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	defer db.Close()
+
+	_, err = db.Exec("INSERT INTO tasks (clientId, text, created, done) VALUES ($1, $2, $3, $4)",
+		newTask.ClientId, newTask.Text, newTask.Created, newTask.Done)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return nil
 }
