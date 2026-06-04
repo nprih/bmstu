@@ -120,7 +120,8 @@ func UpdateTask(clientAnswer TaskAnswer) error {
 		statusCode = 2
 	}
 
-	_, err = db.Exec("UPDATE tasks SET answer=$1, done=$2 WHERE id=$3", clientAnswer.Answer, statusCode, clientAnswer.Id)
+	_, err = db.Exec("UPDATE tasks SET answer=$1, done=$2 WHERE id=$3",
+		clientAnswer.Answer, statusCode, clientAnswer.Id)
 	if err != nil {
 		log.Println(err)
 		return err
