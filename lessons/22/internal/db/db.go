@@ -4,9 +4,15 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"time"
 
 	_ "modernc.org/sqlite"
 )
+
+/*
+SelectAllClients() []Client
+SelectAllTasks() []Tasks
+*/
 
 func SelectAllClients() []Client {
 	db, err := sql.Open("sqlite", "lesson22")
@@ -18,7 +24,7 @@ func SelectAllClients() []Client {
 
 	err = db.Ping()
 	if err != nil {
-		log.Println("ping", err)
+		log.Println("ping db:", err)
 	}
 
 	rows, err := db.Query("SELECT * FROM clients")
@@ -26,22 +32,23 @@ func SelectAllClients() []Client {
 		log.Println(err)
 		return []Client{}
 	}
-	defer rows.Close()
 
+	defer rows.Close()
 	clients := []Client{}
+
 	for rows.Next() {
-		client := Client{}
-		err := rows.Scan(&client.Id, &client.Name, &client.Created, &client.WasOnline)
+		ph := Client{}
+		err := rows.Scan(&ph.Id, &ph.Name, &ph.Created, &ph.WasOnline)
 		if err != nil {
 			log.Println(err)
 			continue
 		}
-		clients = append(clients, client)
+		clients = append(clients, ph)
 	}
 	return clients
 }
 
-func SelectAllTask() []Task {
+func SelectAllTasks() []Task {
 	db, err := sql.Open("sqlite", "lesson22")
 	if err != nil {
 		log.Println(err)
@@ -51,7 +58,7 @@ func SelectAllTask() []Task {
 
 	err = db.Ping()
 	if err != nil {
-		log.Println("ping", err)
+		log.Println("ping db:", err)
 	}
 
 	rows, err := db.Query("SELECT * FROM tasks")
@@ -59,23 +66,24 @@ func SelectAllTask() []Task {
 		log.Println(err)
 		return []Task{}
 	}
-	defer rows.Close()
 
+	defer rows.Close()
 	tasks := []Task{}
+
 	for rows.Next() {
-		task := Task{}
+		ph := Task{}
 		var TaskAnswer sql.NullString
-		err := rows.Scan(&task.Id, &task.ClientId, &task.Text, &task.Created, &TaskAnswer, &task.Done)
+		err := rows.Scan(&ph.Id, &ph.ClientId, &ph.Text, &ph.Created, &TaskAnswer, &ph.Done)
 		if err != nil {
 			log.Println(err)
 			continue
 		}
 		if TaskAnswer.Valid {
-			task.Answer = TaskAnswer.String
+			ph.Answer = TaskAnswer.String
 		} else {
-			task.Answer = ""
+			ph.Answer = ""
 		}
-		tasks = append(tasks, task)
+		tasks = append(tasks, ph)
 	}
 	return tasks
 }
@@ -88,16 +96,15 @@ func CreateNewTask(newTask Task) error {
 	}
 	defer db.Close()
 
-	_, err = db.Exec("INSERT INTO tasks (clientId, text, created, done) VALUES ($1, $2, $3, $4)",
-		newTask.ClientId, newTask.Text, newTask.Created, newTask.Done)
+	_, err = db.Exec("INSERT INTO tasks (clientId, text, created, done) VALUES ($1, $2, $3, $4)", newTask.ClientId, newTask.Text, newTask.Created, newTask.Done)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return err
 	}
 	return nil
 }
 
-func UpdateTask(clientTaskAnswer TaskAnswer) error {
+func UpdateTask(clientAnswer TaskAnswer) error {
 	db, err := sql.Open("sqlite", "lesson22")
 	if err != nil {
 		log.Println(err)
@@ -106,18 +113,33 @@ func UpdateTask(clientTaskAnswer TaskAnswer) error {
 	defer db.Close()
 
 	var statusCode int
-	switch clientTaskAnswer.Status {
+	switch clientAnswer.Status {
 	case "ok":
 		statusCode = 1
 	case "none":
 		statusCode = 2
 	}
 
-	_, err = db.Exec("UPDATE tasks SET answer=$1, done=$2 WHERE id=$3", clientTaskAnswer.Answer, statusCode, clientTaskAnswer.Id)
+	_, err = db.Exec("UPDATE tasks SET answer=$1, done=$2 WHERE id=$3", clientAnswer.Answer, statusCode, clientAnswer.Id)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return err
 	}
+	return nil
+}
+func InsertNewClient(clientId int) error {
+	db, err := sql.Open("sqlite", "lesson22")
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	defer db.Close()
 
+	_, err = db.Exec(`INSERT INTO clients (id, name, created, online) VALUES ($1, $2, $3, $4)`,
+		clientId, fmt.Sprintf("Client-%d", clientId), time.Now().Format("02 Jan 2006"), time.Now().Format("02 Jan 2006"))
+	if err != nil {
+		log.Println(err)
+		return err
+	}
 	return nil
 }
