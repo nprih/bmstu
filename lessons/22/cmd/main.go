@@ -13,8 +13,11 @@ func main() {
 	r.HandleFunc("/create-task", handler.CreateTaskHandler)
 	r.HandleFunc("/ask-task", handler.AscTaskHandler)
 
+	fs := http.FileServer(http.Dir("static"))
+	r.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	log.Println("Starting server...")
-	if err := http.ListenAndServe(":8080", r); err != nil {
+	if err := http.ListenAndServe(":8090", r); err != nil {
 		log.Println(err)
 	}
 }

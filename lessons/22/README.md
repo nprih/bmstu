@@ -9,3 +9,5 @@ https://github.com/golang-course/lesson22
 
 
 go run cmd/main.go 
+
+![Schema.png](Schema.png)
