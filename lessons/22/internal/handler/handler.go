@@ -101,7 +101,7 @@ func AscTaskHandler(w http.ResponseWriter, r *http.Request) {
 		tasks := db.SelectAllTask()
 		taskForClient := Task{}
 		for _, v := range tasks {
-			if v.Id == intClientId && v.Done == 0 {
+			if v.ClientId == intClientId && v.Done == 0 {
 				taskForClient.Id = v.Id
 				taskForClient.Text = v.Text
 				break
@@ -115,22 +115,20 @@ func AscTaskHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Write(res)
 	} else if r.Method == http.MethodPost {
-		type TaskAnswer struct {
-			Id     int
-			Status string
-			Answer string
-		}
-		var clientTaskAnswer TaskAnswer
+		var clientTaskAnswer db.TaskAnswer
 		err := json.NewDecoder(r.Body).Decode(&clientTaskAnswer)
 		if err != nil {
 			log.Println(err)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		if clientTaskAnswer.Status == "none" {
-			//функция обновляющая значения в таблице
+		err = db.UpdateTask(clientTaskAnswer)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
 		}
-		//функция обновляющая значения в таблице
+		w.WriteHeader(http.StatusCreated)
+
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
