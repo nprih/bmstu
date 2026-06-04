@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
+	"strings"
 	"time"
 )
 
@@ -88,7 +89,8 @@ func main() {
 		}
 
 		var result ExecutionResult
-		answer, err := executeTask(task.Text)
+		tsk := strings.Split(task.Text, " ")
+		answer, err := executeTask(tsk[0], tsk[1:]...)
 		result.Id = task.Id
 
 		if err != nil {
