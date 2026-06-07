@@ -1,4 +1,7 @@
-package main
+// Модуль Gin-server.
+// Здесь основные примеры для написания веб-сервисов на go+gin
+
+package ginserver
 
 import (
 	"fmt"
@@ -8,6 +11,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+// PORT - номер порта для запуска приложения
+const PORT = 8080
 
 type User struct {
 	Id    int
