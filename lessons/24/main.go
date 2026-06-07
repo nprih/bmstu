@@ -36,10 +36,25 @@ func getUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+func createNewUser(c *gin.Context) {
+	var newUser User
+	if err := c.ShouldBindJSON(&newUser); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "User created",
+		"user":    newUser,
+	})
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/", indexHandler)
 	r.GET("/user/: id", getUserById)
+	r.POST("/user", createNewUser)
 	r.GET("/status", statusHandler)
 
 	err := r.Run(":8080")
