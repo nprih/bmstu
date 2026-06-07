@@ -57,6 +57,12 @@ func AuthMiddleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
+func AdminMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Println("Only for admin middleware")
+		c.Next()
+	}
+}
 
 func main() {
 	r := gin.Default()
@@ -65,6 +71,7 @@ func main() {
 	r.Use(AuthMiddleware())
 	r.GET("/user/: id", getUserById)
 	r.POST("/user", createNewUser)
+	r.Use(AdminMiddleware())
 	r.GET("/status", statusHandler)
 
 	err := r.Run(":8080")
