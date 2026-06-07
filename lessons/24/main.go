@@ -1,6 +1,5 @@
-// Модуль Gin-server.
+// Package ginserver Модуль Gin-server.
 // Здесь основные примеры для написания веб-сервисов на go+gin
-
 package ginserver
 
 import (
@@ -12,24 +11,41 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//Для меня
+
+//Строка исходный код
+//  a := 10
+
 // PORT - номер порта для запуска приложения
 const PORT = 8080
 
+// User - структура пользователя для передачи в сервис
 type User struct {
-	Id    int
-	Name  string
-	Email string
+	Id    int    // ID пользователя
+	Name  string // Имя пользователя
+	Email string // Email пользователя
 }
 
+// indexHandler - функция для отображения index страницы
+// Аутентификация не требуется
+//
+// BUG(Dmitry): Слишком простая функция
+//
+// DEPRECATED: функция устарела
 func indexHandler(c *gin.Context) {
 	c.String(http.StatusOK, "Hello from gin")
 }
 
+// statusHandler - обработчик /status
+// Требуется аутентификация администратора
+//
+//	BUG(Dmitry): Аутентификация не настоящая
 func statusHandler(c *gin.Context) {
 	query := c.DefaultQuery("id", "no service")
 	c.String(http.StatusOK, "Status for %s: ok", query)
 }
 
+// getUserById - функция получение пользователя по его id
 func getUserById(c *gin.Context) {
 	id := c.Param("id")
 	IntId, err := strconv.Atoi(id)
@@ -44,6 +60,8 @@ func getUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+// createNewUser - функция создания пользователя
+// BUG(Dmitry): пользователь не создается
 func createNewUser(c *gin.Context) {
 	var newUser User
 	if err := c.ShouldBindJSON(&newUser); err != nil {
@@ -72,7 +90,7 @@ func AdminMiddeware() gin.HandlerFunc {
 	}
 }
 
-func main() {
+func Start() {
 	r := gin.Default()
 	r.GET("/", indexHandler)
 
