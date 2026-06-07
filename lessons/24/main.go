@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
 )
 
 type User struct {
@@ -17,26 +17,23 @@ type User struct {
 func indexHandler(c *gin.Context) {
 	c.String(http.StatusOK, "Hello from gin")
 }
-
 func statusHandler(c *gin.Context) {
 	query := c.DefaultQuery("id", "no service")
-	c.String(http.StatusOK, "Status %s: ok", query)
+	c.String(http.StatusOK, "Status for %s: ok", query)
 }
-
 func getUserById(c *gin.Context) {
 	id := c.Param("id")
-	intId, err := strconv.Atoi(id)
+	IntId, err := strconv.Atoi(id)
 	if err != nil {
 		c.AbortWithStatus(http.StatusBadRequest)
 	}
 	user := User{
-		Id:    intId,
-		Name:  "John Doe",
+		Id:    IntId,
+		Name:  "Vitaly",
 		Email: "Vitaly@mail.ru",
 	}
 	c.JSON(http.StatusOK, user)
 }
-
 func createNewUser(c *gin.Context) {
 	var newUser User
 	if err := c.ShouldBindJSON(&newUser); err != nil {
@@ -46,36 +43,32 @@ func createNewUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "User created",
+		"message": "User was created",
 		"user":    newUser,
 	})
 }
-
-func AuthMiddleware() gin.HandlerFunc {
+func AuthMiddeware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("New Auth request: ", c.Request.Method, c.Request.URL.Path)
+		fmt.Println("New Auth Request:", c.Request.Method, c.Request.URL.Path)
 		c.Next()
 	}
 }
-func AdminMiddleware() gin.HandlerFunc {
+func AdminMiddeware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("Only for admin middleware")
+		fmt.Println("ONLY FOR ADMIN!!")
 		c.Next()
 	}
 }
-
 func main() {
 	r := gin.Default()
 	r.GET("/", indexHandler)
-
-	r.Use(AuthMiddleware())
-	r.GET("/user/: id", getUserById)
+	r.Use(AuthMiddeware())
+	r.GET("/user/:id", getUserById)
 	r.POST("/user", createNewUser)
-	r.Use(AdminMiddleware())
+	r.Use(AdminMiddeware())
 	r.GET("/status", statusHandler)
-
-	err := r.Run(":8080")
-	if err != nil {
+	if err := r.Run(":8080"); err != nil {
+		log.Println(err)
 		return
 	}
 }
