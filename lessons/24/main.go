@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -50,9 +51,18 @@ func createNewUser(c *gin.Context) {
 	})
 }
 
+func AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Println("New Auth request: ", c.Request.Method, c.Request.URL.Path)
+		c.Next()
+	}
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/", indexHandler)
+
+	r.Use(AuthMiddleware())
 	r.GET("/user/: id", getUserById)
 	r.POST("/user", createNewUser)
 	r.GET("/status", statusHandler)
