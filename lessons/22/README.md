@@ -11,3 +11,5 @@ https://github.com/golang-course/lesson22
 go run cmd/main.go 
 
 ![Schema.png](Schema.png)
+
+https://github.com/kubernetes/kubernetes/blob/master/pkg/apis/core/validation/validation_test.go
