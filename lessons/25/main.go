@@ -13,7 +13,7 @@ func GenerateHMAC(key, message []byte) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 func VerifyHMAC(key, message []byte, signature string) bool {
-	message = []byte("Hello with HMAC")
+	key = []byte("secret-key-1234")
 	h := hmac.New(sha256.New, key)
 	h.Write(message)
 	expectedSignature := hex.EncodeToString(h.Sum(nil))
