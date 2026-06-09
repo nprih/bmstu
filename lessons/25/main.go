@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	data := []byte("Hello my friends!")
+	data := []byte("Hello my friends")
 	hash := sha256.Sum256(data)
 	fmt.Printf("%x\n", hash)
 }
