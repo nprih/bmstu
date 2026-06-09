@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/hmac"
 	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/hex"
 	"fmt"
 )
@@ -13,8 +14,8 @@ func GenerateHMAC(key, message []byte) string {
 	return hex.EncodeToString(h.Sum(nil))
 }
 func VerifyHMAC(key, message []byte, signature string) bool {
-	key = []byte("secret-key-1234")
-	h := hmac.New(sha256.New, key)
+	key = []byte("secret-key-123")
+	h := hmac.New(sha512.New, key)
 	h.Write(message)
 	expectedSignature := hex.EncodeToString(h.Sum(nil))
 	expectedBytes, expErr := hex.DecodeString(expectedSignature)
