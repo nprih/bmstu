@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 
@@ -17,8 +19,8 @@ var database = map[string]string{
 }
 
 type LoginRequest struct {
-	Username string `json:name`
-	Password string `json:password`
+	Username string `json:"name"`
+	Password string `json:"password"`
 }
 
 func login(c *gin.Context) {
@@ -58,7 +60,7 @@ func login(c *gin.Context) {
 func secret(c *gin.Context) {
 	var tokenString string
 	authHeader := c.GetHeader("Authorization")
-	if authHeader == "" {
+	if authHeader != "" {
 		if len(authHeader) > 7 && authHeader[:7] == "Bearer " {
 			tokenString = authHeader[7:]
 		}
@@ -69,7 +71,37 @@ func secret(c *gin.Context) {
 		})
 		return
 	}
-	//Проверить токен на валидность
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (any, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Invalid sign method")
+		}
+		return secretKey, nil
+	})
+	if err != nil {
+		log.Println("validation error", err)
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error":       "Token is not valid",
+			"description": err.Error(),
+		})
+		return
+	}
+	if climes, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		log.Println("Token is VALID!")
+		c.JSON(http.StatusOK, gin.H{
+			"message": "This is very secret page =)",
+			"name":    climes["name"],
+		})
+	} else {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": "Unauthorized",
+		})
+	}
+}
+
+func users(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Hello! This is public page!",
+	})
 }
 
 func main() {
