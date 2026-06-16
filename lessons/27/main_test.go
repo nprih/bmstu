@@ -23,5 +23,20 @@ func TestStatusHandler(t *testing.T) {
 		ExpectStatus(http.StatusOK).
 		AssertBody(
 			json.Equal("$.status", "ok"),
-		).ExecuteTest(context.Background(), t)
+		).
+		ExecuteTest(context.Background(), t)
+}
+
+func TestIndexPageNotFound(t *testing.T) {
+	cute.NewTestBuilder().
+		Title("Simple test 2").
+		Description("This is simple test for 404 on Index Page").
+		Create().
+		RequestBuilder(
+			cute.WithURI("http://localhost:8080/"),
+			cute.WithMethod(http.MethodGet),
+		).
+		ExpectExecuteTimeout(2*time.Second).
+		ExpectStatus(http.StatusNotFound).
+		ExecuteTest(context.Background(), t)
 }
