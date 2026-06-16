@@ -44,3 +44,23 @@ func TestStatusHandler(t *testing.T) {
 		})
 	}
 }
+
+func TestStatusHandlerPost(t *testing.T) {
+	req := httptest.NewRequest(http.MethodPost, "/status", nil)
+	w := httptest.NewRecorder()
+	StatusHandler(w, req)
+	res := w.Result()
+	defer res.Body.Close()
+	assert.Equal(t, http.StatusMethodNotAllowed, res.StatusCode)
+}
+
+func TestRootNotFound(t *testing.T) {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/status", StatusHandler)
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	w := httptest.NewRecorder()
+	mux.ServeHTTP(w, req)
+	res := w.Result()
+	defer res.Body.Close()
+	assert.Equal(t, http.StatusNotFound, res.StatusCode)
+}

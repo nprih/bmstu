@@ -10,6 +10,7 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{"status": "ok"}`))
 }
+
 func main() {
 	http.HandleFunc("/status", StatusHandler)
 	log.Println("Server starting...")
