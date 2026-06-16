@@ -6,3 +6,6 @@ go get github.com/stretchr/testify
 //2) ДЖСОН есть нормальный ДЖСОН
 
 go get -u github.com/ozontech/cute
+go get -u github.com/ozontech/cute/asserts/json
+
+go test -v

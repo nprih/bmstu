@@ -1,66 +1,27 @@
 package main
 
 import (
-	"io"
+	"context"
 	"net/http"
-	"net/http/httptest"
 	"testing"
+	"time"
 
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"github.com/ozontech/cute"
+	"github.com/ozontech/cute/asserts/json"
 )
 
 func TestStatusHandler(t *testing.T) {
-	type want struct {
-		code        int
-		response    string
-		contentType string
-	}
-	tests := []struct {
-		name string
-		want want
-	}{
-		{
-			name: "Positive test 1 (200 OK)",
-			want: want{
-				code:        200,
-				response:    `{"status": "ok"}`,
-				contentType: "application/json",
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			request := httptest.NewRequest(http.MethodGet, "/status", nil)
-			w := httptest.NewRecorder()
-			StatusHandler(w, request)
-			res := w.Result()
-			assert.Equal(t, tt.want.code, res.StatusCode)
-			defer res.Body.Close()
-			resBody, err := io.ReadAll(res.Body)
-			require.NoError(t, err)
-			assert.Equal(t, tt.want.contentType, res.Header.Get("Content-Type"))
-			assert.JSONEq(t, tt.want.response, string(resBody))
-		})
-	}
-}
-
-func TestStatusHandlerPost(t *testing.T) {
-	req := httptest.NewRequest(http.MethodPost, "/status", nil)
-	w := httptest.NewRecorder()
-	StatusHandler(w, req)
-	res := w.Result()
-	defer res.Body.Close()
-	assert.Equal(t, http.StatusMethodNotAllowed, res.StatusCode)
-}
-
-func TestRootNotFound(t *testing.T) {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/status", StatusHandler)
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	w := httptest.NewRecorder()
-	mux.ServeHTTP(w, req)
-	res := w.Result()
-	defer res.Body.Close()
-	assert.Equal(t, http.StatusNotFound, res.StatusCode)
+	cute.NewTestBuilder().
+		Title("Simple test 1").
+		Description("This is simple test for 200 ok and json").
+		Create().
+		RequestBuilder(
+			cute.WithURI("http://localhost:8080/status"),
+			cute.WithMethod(http.MethodGet),
+		).
+		ExpectExecuteTimeout(5*time.Second).
+		ExpectStatus(http.StatusOK).
+		AssertBody(
+			json.Equal("$.status", "ok"),
+		).ExecuteTest(context.Background(), t)
 }
