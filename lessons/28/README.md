@@ -14,6 +14,10 @@ docker run --publish 8080:80 nginx (80 - порт nginx, 8080 - порт на х
 
 docker ps -a
 
+cowsay - приложение
+docker build -t cowsaytest .
+docker run cowsaytest cowsay "GOLANG"
+
 # Команды для Dockerfile
 • FROM. Эта инструкция задает родительский (базовый) образ, на основе
 которого будет формироваться наш собственный.
