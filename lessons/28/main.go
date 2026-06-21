@@ -8,7 +8,6 @@ import (
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("IndexHandler")
 	version := os.Getenv("VERSION")
 	if version == "" {
 		version = "1.0.0"
