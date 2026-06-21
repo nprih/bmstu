@@ -21,6 +21,9 @@ docker run cowsaytest cowsay "GOLANG"
 docker build -t my-go-app .
 docker run -e VERSION="2.0.0"  --publish 8080:8080 my-go-app
 
+docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=12345 -d mysql:8.0.31
+docker run --name myphp -d --link some-mysql:db -p 8081:80 phpmyadmin/phpmyadmin
+
 # Команды для Dockerfile
 • FROM. Эта инструкция задает родительский (базовый) образ, на основе
 которого будет формироваться наш собственный.
