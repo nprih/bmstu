@@ -8,6 +8,7 @@ import (
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("IndexHandler")
 	version := os.Getenv("VERSION")
 	if version == "" {
 		version = "1.0.0"
@@ -16,7 +17,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/status", IndexHandler)
+	http.HandleFunc("/", IndexHandler)
 	log.Println("Server starting...")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Println(err)

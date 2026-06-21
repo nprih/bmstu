@@ -18,6 +18,9 @@ cowsay - приложение
 docker build -t cowsaytest .
 docker run cowsaytest cowsay "GOLANG"
 
+docker build -t my-go-app .
+docker run -e VERSION="2.0.0"  --publish 8080:8080 my-go-app
+
 # Команды для Dockerfile
 • FROM. Эта инструкция задает родительский (базовый) образ, на основе
 которого будет формироваться наш собственный.
